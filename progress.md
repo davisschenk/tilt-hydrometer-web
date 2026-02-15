@@ -46,3 +46,12 @@
 - Verify with `cargo build --workspace`
 **Files:** .env.example, .gitignore
 **Result:** Success
+
+## Working on: TiltColor enum with iBeacon UUID constants
+**Plan:**
+- The stub TiltColor already exists from cycle 2 with uuid() and from_uuid() methods
+- Upgrade to use const UUIDs instead of parsing strings at runtime
+- Add comprehensive unit tests: round-trip all 8 colors, unknown UUID returns None, serde serialization
+- Verify with `cargo test -p shared`
+**Files:** shared/src/lib.rs
+**Result:** Success — 9 tests pass (round-trip, UUID correctness, uniqueness, serde)

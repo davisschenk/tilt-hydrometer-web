@@ -211,7 +211,7 @@
         "Serializes to/from camelCase JSON strings — verify with serde_json::to_string unit test",
         "cargo test -p shared passes with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Shared-Types",
