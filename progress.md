@@ -362,3 +362,12 @@
 - Verify with `npm run build`
 **Files:** web/src/components/layout/app-shell.tsx
 **Result:** Success — Sheet mobile nav, hamburger menu, closes on link click, build passes
+
+## Working on: Page header component with breadcrumbs
+**Plan:**
+- Create web/src/components/layout/page-header.tsx with title, description, actions props
+- Create web/src/components/layout/breadcrumbs.tsx using useLocation to parse path segments
+- Update placeholder pages to use PageHeader
+- Verify with `npm run build`
+**Files:** web/src/components/layout/page-header.tsx, web/src/components/layout/breadcrumbs.tsx, web/src/pages/*.tsx
+**Result:** Success — PageHeader + Breadcrumbs components, all pages updated, build passes

@@ -110,7 +110,7 @@
         "Breadcrumbs component renders path segments as clickable links \u2014 verify by navigating to /brews/:id and seeing breadcrumbs",
         "Breadcrumb home link goes to / \u2014 verify by clicking"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Layout-Navigation",
