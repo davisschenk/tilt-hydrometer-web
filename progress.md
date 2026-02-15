@@ -74,3 +74,12 @@
 - Verify with `cargo test -p shared`
 **Files:** shared/src/lib.rs
 **Result:** Success — 21 tests pass
+
+## Working on: Hydrometer DTOs
+**Plan:**
+- Add CreateHydrometer (color required, name optional), UpdateHydrometer (all optional), HydrometerResponse (all fields) DTOs
+- All with serde camelCase
+- Add unit tests: CreateHydrometer required/optional, UpdateHydrometer all-optional, HydrometerResponse round-trip
+- Verify with `cargo test -p shared`
+**Files:** shared/src/lib.rs
+**Result:** Success — 26 tests pass

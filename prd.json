@@ -250,7 +250,7 @@
         "All DTOs serialize/deserialize correctly — verify with serde_json round-trip unit test",
         "cargo test -p shared passes with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Shared-Types",
