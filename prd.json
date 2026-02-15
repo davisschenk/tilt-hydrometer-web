@@ -345,7 +345,7 @@
         "server service depends_on db — verify by reading docker-compose.yml",
         "docker compose up -d db starts Postgres successfully — verify with docker compose ps showing healthy"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",

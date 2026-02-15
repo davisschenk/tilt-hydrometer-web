@@ -174,3 +174,11 @@
 - Verify with `cargo check -p client`
 **Files:** client/src/main.rs
 **Result:** Success — `--help` shows all 4 args with correct defaults
+
+## Working on: Docker Compose with Postgres and server
+**Plan:**
+- Update docker-compose.yml: add server service (builds from Dockerfile, depends_on db, env vars)
+- Named volume pgdata already exists
+- Verify with `sudo docker compose config`
+**Files:** docker-compose.yml
+**Result:** Success — valid config with db + server services
