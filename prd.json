@@ -361,7 +361,7 @@
         "ColorDot used in hydrometer cards, brew list, and dashboard \u2014 verify by searching source for ColorDot usage",
         "npm run build succeeds with no type errors \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     }
   ]
 }

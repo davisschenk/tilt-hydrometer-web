@@ -511,3 +511,12 @@
 - Verify with `npm run build`
 **Files:** web/src/components/readings/fermentation-stats.tsx, web/src/pages/brew-detail.tsx
 **Result:** Success — 5 stat cards (gravity, attenuation, ABV, temp trend, time since), build passes
+
+## Working on: Tilt color utility with hex color mapping
+**Plan:**
+- Create web/src/lib/tilt-colors.ts with TILT_COLOR_MAP (hex, displayName, bgLight)
+- Create web/src/components/ui/color-dot.tsx component
+- Replace inline color maps in dashboard.tsx and brew-list.tsx with ColorDot and TILT_COLOR_MAP
+- Verify with `npm run build`
+**Files:** web/src/lib/tilt-colors.ts, web/src/components/ui/color-dot.tsx, web/src/pages/dashboard.tsx, web/src/pages/brew-list.tsx
+**Result:** Success — TILT_COLOR_MAP with 8 colors, ColorDot component, replaced in dashboard + brew-list, build passes
