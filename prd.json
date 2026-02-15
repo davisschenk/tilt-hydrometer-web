@@ -30,7 +30,7 @@
         "All listed shadcn components installed in web/src/components/ui/ \u2014 verify with ls web/src/components/ui/",
         "A test page with a shadcn Button renders correctly \u2014 verify by viewing in browser"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Project-Setup",

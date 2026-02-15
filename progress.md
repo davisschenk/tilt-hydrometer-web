@@ -305,3 +305,11 @@
 - Verify with `npm run dev`
 **Files:** web/ (new directory)
 **Result:** Success — upgraded Node.js to v22, Vite 8 beta, all deps installed, build passes
+
+## Working on: Configure TailwindCSS v4 and shadcn/ui
+**Plan:**
+- Run `npx shadcn@latest init` (this installs Tailwind v4 automatically)
+- Install shadcn components: button, card, input, label, badge, separator, dropdown-menu, dialog, table, sonner
+- Verify with `npm run build`
+**Files:** web/ (various config and component files)
+**Result:** Success — Tailwind v4, shadcn/ui with 10 components, build passes
