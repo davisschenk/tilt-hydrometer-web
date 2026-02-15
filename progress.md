@@ -220,3 +220,13 @@
 - Verify with `cargo check -p server`
 **Files:** server/src/routes/brews.rs, server/src/routes/mod.rs, server/src/main.rs
 **Result:** Success
+
+## Working on: Readings ingestion and query routes
+**Plan:**
+- Create server/src/routes/readings.rs with POST (batch insert via CreateReadingsBatch) and GET (filtered query)
+- POST auto-resolves hydrometer by color, links to active brew
+- GET accepts query params: brew_id, hydrometer_id, since, until, limit
+- Register in routes/mod.rs and mount in main.rs
+- Verify with `cargo check -p server`
+**Files:** server/src/routes/readings.rs, server/src/routes/mod.rs, server/src/main.rs
+**Result:** Success — Server-API group complete!

@@ -183,7 +183,7 @@
         "GET /readings?brew_id=<id> filters by brew — verify with integration test",
         "GET /readings?since=<ts>&until=<ts> filters by time range — verify with integration test"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Server-API",
