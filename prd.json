@@ -336,7 +336,7 @@
         "Help text explains what each offset does \u2014 verify by reading form labels",
         "Successful edit updates the card and shows toast \u2014 verify by editing and observing"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Hydrometer-Management",

@@ -550,3 +550,14 @@
 - Verify with `npm run build`
 **Files:** web/src/components/hydrometer/register-hydrometer-dialog.tsx, web/src/pages/hydrometer-list.tsx
 **Result:** Success — Dialog with color select (filtered), ColorDot previews, optional name, toast, build passes
+
+## Working on: Edit hydrometer dialog with calibration offsets
+**Plan:**
+- Create web/src/components/hydrometer/edit-hydrometer-dialog.tsx as shadcn Dialog
+- Pre-filled fields: Name/Alias, Temp Offset °F (step 0.1), Gravity Offset (step 0.001)
+- Help text for each offset field
+- PUT /hydrometers/:id on submit, toast, invalidate queries
+- Add Edit button to hydrometer cards in hydrometer-list.tsx
+- Verify with `npm run build`
+**Files:** web/src/components/hydrometer/edit-hydrometer-dialog.tsx, web/src/pages/hydrometer-list.tsx
+**Result:** Success — Dialog with name, temp offset, gravity offset, help text, Edit button on cards, build passes
