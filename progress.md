@@ -332,3 +332,12 @@
 - Verify with `npm run build`
 **Files:** web/src/lib/api.ts, web/src/lib/query-client.ts, web/src/main.tsx, web/src/hooks/*.ts
 **Result:** Success — API client + 3 hook files, build passes
+
+## Working on: React Router configuration with route structure
+**Plan:**
+- Set up BrowserRouter in main.tsx
+- Create placeholder pages: dashboard, brew-list, brew-detail, brew-new, hydrometer-list, not-found
+- Define routes in App.tsx: /, /brews, /brews/new, /brews/:id, /hydrometers, * (404)
+- Verify with `npm run build`
+**Files:** web/src/main.tsx, web/src/App.tsx, web/src/pages/*.tsx
+**Result:** Success — 6 page components, BrowserRouter + Routes, build passes

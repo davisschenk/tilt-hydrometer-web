@@ -72,7 +72,7 @@
         "404 catch-all route renders a not-found page \u2014 verify by reading router config",
         "Navigation between routes works \u2014 verify by clicking links in browser"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Layout-Navigation",
