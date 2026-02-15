@@ -396,7 +396,7 @@
         "Makefile or justfile exists with test, check, fmt, clippy targets — verify by reading file",
         "make test (or just test) runs cargo test --workspace — verify by reading file"
       ],
-      "passes": false
+      "passes": true
     }
   ]
 }

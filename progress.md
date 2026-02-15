@@ -282,3 +282,13 @@
 - Verify by reading file for correctness
 **Files:** client/tilt-client.service
 **Result:** Success
+
+## Working on: CI-ready test and build verification
+**Plan:**
+- Run `cargo test --workspace` — fix any failures
+- Run `cargo fmt --all -- --check` — fix any formatting issues
+- Run `cargo clippy --workspace -- -D warnings` — fix any clippy warnings
+- Create Makefile with targets: test, check, fmt, clippy, migrate, run-server, run-client
+- Verify all 3 CI commands pass
+**Files:** Makefile, shared/src/lib.rs, server/src/services/hydrometer_service.rs, server/src/models/entities/prelude.rs, cargo fmt fixes
+**Result:** Success — ALL 30/30 TASKS COMPLETE! 🎉
