@@ -121,3 +121,13 @@
 - Verify with `cargo check -p migration`
 **Files:** server/migration/src/m20260215_000002_create_brews.rs, server/migration/src/lib.rs
 **Result:** Success
+
+## Working on: Create readings table migration
+**Plan:**
+- Create m20260215_000003_create_readings.rs migration
+- Columns: id (UUID PK), brew_id (UUID nullable FK→brews.id), hydrometer_id (UUID NOT NULL FK→hydrometers.id), temperature_f (DOUBLE NOT NULL), gravity (DOUBLE NOT NULL), rssi (SMALLINT nullable), recorded_at (TIMESTAMPTZ NOT NULL), created_at (TIMESTAMPTZ NOT NULL DEFAULT now())
+- Indexes on brew_id, hydrometer_id, recorded_at
+- Register in Migrator
+- Verify with `cargo check -p migration`
+**Files:** server/migration/src/m20260215_000003_create_readings.rs, server/migration/src/lib.rs
+**Result:** Success

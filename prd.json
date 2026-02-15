@@ -114,7 +114,7 @@
         "Indexes on brew_id, hydrometer_id, recorded_at exist — verify via pg_indexes",
         "sea-orm-cli migrate up succeeds with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database-Schema",
