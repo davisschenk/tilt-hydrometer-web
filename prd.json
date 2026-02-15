@@ -297,7 +297,7 @@
         "Alert banner 'Complete Brew' button sends PUT to update status \u2014 verify by clicking and checking network",
         "Alert banner hidden when gravity is above targetFg \u2014 verify with appropriate data"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Hydrometer-Management",

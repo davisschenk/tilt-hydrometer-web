@@ -520,3 +520,12 @@
 - Verify with `npm run build`
 **Files:** web/src/lib/tilt-colors.ts, web/src/components/ui/color-dot.tsx, web/src/pages/dashboard.tsx, web/src/pages/brew-list.tsx
 **Result:** Success — TILT_COLOR_MAP with 8 colors, ColorDot component, replaced in dashboard + brew-list, build passes
+
+## Working on: Gravity target line and completion detection
+**Plan:**
+- Add targetFg prop to ReadingsChart, render Recharts ReferenceLine (green dashed) when set
+- Create alert banner in brew-detail.tsx when latest gravity <= targetFg
+- Banner has "Complete Brew" button that PUTs status to Completed
+- Verify with `npm run build`
+**Files:** web/src/components/readings/readings-chart.tsx, web/src/pages/brew-detail.tsx
+**Result:** Success — ReferenceLine dashed green, alert banner with Complete button, build passes
