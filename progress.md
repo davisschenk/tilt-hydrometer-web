@@ -322,3 +322,13 @@
 - Verify with `npm run build`
 **Files:** web/src/types/index.ts
 **Result:** Success — 12 interfaces/types, build passes
+
+## Working on: API client and TanStack Query provider setup
+**Plan:**
+- Create web/src/lib/api.ts with apiGet, apiPost, apiPut, apiDelete using VITE_API_URL
+- Create web/src/lib/query-client.ts with QueryClient config
+- Wrap app in QueryClientProvider in main.tsx
+- Create web/src/hooks/use-brews.ts, use-hydrometers.ts, use-readings.ts
+- Verify with `npm run build`
+**Files:** web/src/lib/api.ts, web/src/lib/query-client.ts, web/src/main.tsx, web/src/hooks/*.ts
+**Result:** Success — API client + 3 hook files, build passes

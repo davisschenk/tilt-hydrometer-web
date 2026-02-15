@@ -59,7 +59,7 @@
         "useReadings() hook accepts query params (brewId, since, until, limit) \u2014 verify by reading hook file",
         "npm run build succeeds \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Project-Setup",
