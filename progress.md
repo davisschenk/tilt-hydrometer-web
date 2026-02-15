@@ -55,3 +55,12 @@
 - Verify with `cargo test -p shared`
 **Files:** shared/src/lib.rs
 **Result:** Success — 9 tests pass (round-trip, UUID correctness, uniqueness, serde)
+
+## Working on: TiltReading and CreateReadingsBatch DTOs
+**Plan:**
+- Add TiltReading::new() constructor
+- Add CreateReadingsBatch newtype wrapping Vec<TiltReading> with serde camelCase
+- Add unit tests: TiltReading::new() constructs valid instance, serde round-trip, CreateReadingsBatch wraps vec
+- Verify with `cargo test -p shared`
+**Files:** shared/src/lib.rs
+**Result:** Success — 15 tests pass (9 TiltColor + 6 TiltReading/CreateReadingsBatch)

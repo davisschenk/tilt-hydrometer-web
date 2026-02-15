@@ -224,7 +224,7 @@
         "TiltReading::new() constructs valid instance — verify with unit test",
         "cargo test -p shared passes with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Shared-Types",
