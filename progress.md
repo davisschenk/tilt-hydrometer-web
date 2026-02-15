@@ -192,3 +192,12 @@
 - Verify with `sudo docker build -f server/Dockerfile .`
 **Files:** server/Dockerfile
 **Result:** Success — 4-stage build completes, image built
+
+## Working on: Environment configuration and .env.example
+**Plan:**
+- Verify .env.example has all 5 vars (DATABASE_URL, ROCKET_SECRET_KEY, ROCKET_PORT, RUST_LOG, DB_PASSWORD) with comments
+- Verify ROCKET_SECRET_KEY has generation hint
+- Verify dotenvy::dotenv() is called in server/src/main.rs
+- All already in place from earlier cycles
+**Files:** .env.example, server/src/main.rs
+**Result:** Success — all criteria already met from cycles 5 and 16

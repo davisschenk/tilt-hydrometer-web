@@ -370,7 +370,7 @@
         "ROCKET_SECRET_KEY line includes generation hint — verify by reading file",
         "Server binary loads .env via dotenvy at startup — verify by reading server/src/main.rs for dotenvy::dotenv() call"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",
