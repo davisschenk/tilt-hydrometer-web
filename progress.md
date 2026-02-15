@@ -529,3 +529,13 @@
 - Verify with `npm run build`
 **Files:** web/src/components/readings/readings-chart.tsx, web/src/pages/brew-detail.tsx
 **Result:** Success — ReferenceLine dashed green, alert banner with Complete button, build passes
+
+## Working on: Hydrometer list page with status indicators
+**Plan:**
+- Rewrite web/src/pages/hydrometer-list.tsx with responsive card grid
+- Each card: large ColorDot, color name, alias, calibration offsets, registration date, active brew link
+- Register Hydrometer button in page header (placeholder for dialog wiring)
+- Loading skeletons, empty state
+- Verify with `npm run build`
+**Files:** web/src/pages/hydrometer-list.tsx
+**Result:** Success — responsive card grid, ColorDot, calibration offsets, active brew link, empty state, build passes

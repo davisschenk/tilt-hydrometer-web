@@ -310,7 +310,7 @@
         "'Register Hydrometer' button in page header \u2014 verify by viewing",
         "Empty state shown when no hydrometers registered \u2014 verify with empty API response"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Hydrometer-Management",
