@@ -539,3 +539,14 @@
 - Verify with `npm run build`
 **Files:** web/src/pages/hydrometer-list.tsx
 **Result:** Success — responsive card grid, ColorDot, calibration offsets, active brew link, empty state, build passes
+
+## Working on: Register hydrometer dialog
+**Plan:**
+- Create web/src/components/hydrometer/register-hydrometer-dialog.tsx as shadcn Dialog
+- Color select with ColorDot previews, filtered to exclude already-registered colors
+- Name/Alias optional text input
+- POST /hydrometers on submit, toast, invalidate queries
+- Wire into hydrometer-list.tsx Register button
+- Verify with `npm run build`
+**Files:** web/src/components/hydrometer/register-hydrometer-dialog.tsx, web/src/pages/hydrometer-list.tsx
+**Result:** Success — Dialog with color select (filtered), ColorDot previews, optional name, toast, build passes
