@@ -237,7 +237,7 @@
         "BrewResponse includes id, all brew fields, and optional latest_reading — verify by reading source",
         "cargo test -p shared passes with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Shared-Types",

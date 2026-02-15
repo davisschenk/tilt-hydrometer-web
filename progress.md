@@ -64,3 +64,13 @@
 - Verify with `cargo test -p shared`
 **Files:** shared/src/lib.rs
 **Result:** Success — 15 tests pass (9 TiltColor + 6 TiltReading/CreateReadingsBatch)
+
+## Working on: BrewStatus enum and Brew DTOs
+**Plan:**
+- BrewStatus stub exists — keep it, it already has Active/Completed/Archived
+- Add CreateBrew, UpdateBrew, BrewResponse DTOs with serde camelCase
+- BrewResponse includes optional latest_reading (TiltReading)
+- Add unit tests: BrewStatus serde, CreateBrew required/optional fields, UpdateBrew all-optional, BrewResponse round-trip
+- Verify with `cargo test -p shared`
+**Files:** shared/src/lib.rs
+**Result:** Success — 21 tests pass
