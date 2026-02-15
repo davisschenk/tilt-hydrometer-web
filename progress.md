@@ -12,3 +12,11 @@
 - Verify with `cargo build --workspace`
 **Files:** Cargo.toml, server/Cargo.toml, server/src/main.rs, client/Cargo.toml, client/src/main.rs, shared/Cargo.toml, shared/src/lib.rs
 **Result:** Success
+
+## Working on: Shared crate dependencies and stub types
+**Plan:**
+- `cargo add` serde (derive), chrono (serde), uuid (v4+serde) to shared crate
+- Write shared/src/lib.rs with stub TiltColor (8 variants), TiltReading struct, BrewStatus enum
+- Verify with `cargo check -p shared`
+**Files:** shared/Cargo.toml, shared/src/lib.rs
+**Result:** Success

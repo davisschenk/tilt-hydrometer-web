@@ -54,7 +54,7 @@
         "shared/src/lib.rs defines TiltReading struct — verify by reading source",
         "cargo check -p shared succeeds with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Workspace-Scaffolding",
