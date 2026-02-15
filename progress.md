@@ -412,3 +412,13 @@
 - Verify with `npm run build`
 **Files:** web/src/components/dashboard/recent-readings-chart.tsx, web/src/pages/dashboard.tsx
 **Result:** Success — Recharts LineChart with 24h readings, grouped by brew, color-coded lines, build passes
+
+## Working on: Auto-refresh with configurable interval
+**Plan:**
+- Add refetchInterval: 30000 to dashboard query hooks
+- Add last-refreshed timestamp display in PageHeader actions area
+- Add manual RefreshCw button that invalidates all dashboard queries
+- Animate RefreshCw icon during refetch with spin class
+- Verify with `npm run build`
+**Files:** web/src/pages/dashboard.tsx
+**Result:** Success — 30s refetchInterval, RefreshCw spin animation, last-updated timestamp, build passes

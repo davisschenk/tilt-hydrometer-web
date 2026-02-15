@@ -174,7 +174,7 @@
         "Manual refresh button triggers immediate refetch \u2014 verify by clicking and watching network tab",
         "RefreshCw icon animates (spins) during refetch \u2014 verify by clicking refresh and observing animation"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Brew-Management",
