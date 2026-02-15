@@ -217,7 +217,7 @@
         "Delete button shows confirmation dialog before deleting \u2014 verify by clicking",
         "Complete/Archive buttons update brew status via API \u2014 verify by clicking and checking status change"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Brew-Management",

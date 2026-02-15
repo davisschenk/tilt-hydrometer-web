@@ -444,3 +444,14 @@
 - Verify with `npm run build`
 **Files:** web/src/pages/brew-new.tsx
 **Result:** Success — form with 6 fields, Select/Textarea, validation, toast, redirect, build passes
+
+## Working on: Brew detail page with readings summary
+**Plan:**
+- Rewrite web/src/pages/brew-detail.tsx to fetch brew by ID via useBrew hook
+- Show brew name as title, status badge, style, stats grid (OG/FG/Target FG/ABV)
+- Hydrometer info, start/end dates (date-fns), notes
+- Action buttons: Edit, Complete, Archive, Delete (placeholders for dialog wiring)
+- Readings section placeholder
+- Verify with `npm run build`
+**Files:** web/src/pages/brew-detail.tsx
+**Result:** Success — stats grid, status badge, action buttons, dates, notes, readings placeholder, build passes
