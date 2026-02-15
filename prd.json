@@ -362,6 +362,56 @@
         "npm run build succeeds with no type errors \u2014 verify by running command"
       ],
       "passes": true
+    },
+    {
+      "group": "Client-Simulate",
+      "feature": "Add --simulate CLI flag and simulator configuration args",
+      "description": "Add a `--simulate` boolean flag to the clap Args struct in client/src/main.rs. When set, the client skips BLE scanner initialization and uses a simulator instead. Add supporting args: `--sim-colors` (comma-separated list of TiltColor names to simulate, default 'Red'), `--sim-og` (starting OG, default 1.055), `--sim-target-fg` (target FG, default 1.012), `--sim-temp` (base temperature °F, default 68.0). These args are only used when --simulate is set. Log a clear info message when starting in simulate mode vs BLE mode.",
+      "acceptance_criteria": [
+        "cargo build -p client succeeds with new CLI args — verify by running command",
+        "--simulate flag accepted without error — verify with cargo run -p client -- --simulate --server-url http://localhost:8000",
+        "--sim-colors, --sim-og, --sim-target-fg, --sim-temp args parsed correctly — verify by adding trace log and checking output",
+        "Without --simulate, client still attempts BLE scanner initialization — verify by running without flag"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Client-Simulate",
+      "feature": "Create simulator module with fermentation curve generation",
+      "description": "Create client/src/simulator.rs with a TiltSimulator struct. It accepts: colors (Vec<TiltColor>), starting OG, target FG, base temperature, and scan interval. On each call to generate_readings(), it produces one TiltReading per configured color. Gravity follows an exponential decay curve from OG toward target FG over ~14 days (configurable). Temperature has small random jitter (±0.5°F). Gravity has tiny noise (±0.001). The simulator tracks elapsed time from first call to compute position on the fermentation curve. RSSI is simulated as a random value between -60 and -80.",
+      "acceptance_criteria": [
+        "cargo build -p client succeeds — verify by running command",
+        "TiltSimulator::new() constructs without panic — verify via unit test",
+        "generate_readings() returns one reading per configured color — verify via unit test",
+        "Gravity decreases over successive calls following exponential decay — verify via unit test calling generate_readings() multiple times",
+        "Temperature values stay within base_temp ± 1.0°F — verify via unit test",
+        "RSSI values are in range -80..=-60 — verify via unit test"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Client-Simulate",
+      "feature": "Wire simulator into main loop as alternative to BLE scanner",
+      "description": "Refactor client/src/main.rs to branch on the --simulate flag. When --simulate is set: skip TiltScanner::new(), construct a TiltSimulator from the CLI args, and in the main loop call simulator.generate_readings() instead of scanner.scan_once(). The rest of the loop (buffering, uploading, backoff) remains identical. Parse --sim-colors by splitting on comma and mapping each to TiltColor::parse(). Log each simulated reading at debug level.",
+      "acceptance_criteria": [
+        "cargo build -p client succeeds — verify by running command",
+        "Running with --simulate generates readings and uploads them to the server — verify by running with a live server and checking readings appear",
+        "Running without --simulate still uses BLE scanner — verify by running without flag on a machine with BLE",
+        "Invalid --sim-colors value produces a clear error message — verify by passing an invalid color name"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Client-Simulate",
+      "feature": "Unit tests for simulator module",
+      "description": "Add comprehensive #[cfg(test)] tests in client/src/simulator.rs. Tests: (1) default config produces readings, (2) multi-color simulation produces correct number of readings, (3) gravity stays within OG..target_fg bounds, (4) gravity decreases monotonically when noise is removed (or on average over many samples), (5) temperature jitter stays within bounds, (6) RSSI is always in valid range, (7) fermentation curve reaches near target_fg after simulated 14 days. Use deterministic time advancement where possible.",
+      "acceptance_criteria": [
+        "cargo test -p client passes all new tests — verify by running command",
+        "At least 5 test functions exist in simulator module — verify by counting #[test] annotations",
+        "Tests cover gravity bounds, temperature jitter, RSSI range, and multi-color output — verify by reading test names",
+        "No existing tests broken — verify by running cargo test --workspace"
+      ],
+      "passes": false
     }
   ]
 }

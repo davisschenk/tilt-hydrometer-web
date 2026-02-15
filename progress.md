@@ -571,3 +571,13 @@
 - Verify with `npm run build`
 **Files:** web/src/components/hydrometer/delete-hydrometer-dialog.tsx, web/src/pages/hydrometer-list.tsx
 **Result:** Success — AlertDialog with active brew warning, Delete button on cards, toast, query invalidation, build passes
+
+---
+
+# Phase: Client Simulate Mode
+
+Appended 4 new tasks to prd.json under group "Client-Simulate":
+1. Add --simulate CLI flag and simulator configuration args
+2. Create simulator module with fermentation curve generation
+3. Wire simulator into main loop as alternative to BLE scanner
+4. Unit tests for simulator module
