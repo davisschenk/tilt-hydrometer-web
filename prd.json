@@ -188,7 +188,7 @@
         "'New Brew' button in header links to /brews/new \u2014 verify by clicking",
         "Empty state shown when no brews match filter \u2014 verify by selecting a filter with no results"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Brew-Management",

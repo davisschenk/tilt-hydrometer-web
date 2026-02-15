@@ -422,3 +422,15 @@
 - Verify with `npm run build`
 **Files:** web/src/pages/dashboard.tsx
 **Result:** Success — 30s refetchInterval, RefreshCw spin animation, last-updated timestamp, build passes
+
+## Working on: Brew list page with status filtering
+**Plan:**
+- Install shadcn tabs component
+- Rewrite web/src/pages/brew-list.tsx with shadcn Table, status Tabs (All/Active/Completed/Archived)
+- Columns: Name, Style, Hydrometer (color dot), Status (Badge), OG, Current SG, ABV, Start Date
+- New Brew button in PageHeader actions
+- Loading skeleton rows, empty state
+- Clicking row navigates to /brews/:id
+- Verify with `npm run build`
+**Files:** web/src/pages/brew-list.tsx
+**Result:** Success — Table with 8 columns, Tabs status filter, Badge color-coding, empty state, build passes
