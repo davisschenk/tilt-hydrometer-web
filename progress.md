@@ -379,3 +379,14 @@
 - Verify with `npm run build`
 **Files:** web/src/components/layout/app-shell.tsx, web/src/lib/toast.ts
 **Result:** Success — Sonner Toaster in app shell, toast helper with success/error/info, build passes
+
+## Working on: Dashboard summary cards
+**Plan:**
+- Install shadcn skeleton component for loading states
+- Rewrite web/src/pages/dashboard.tsx with 4 summary cards: Active Brews, Total Hydrometers, Latest Reading, Readings Today
+- Use useBrews("Active"), useHydrometers(), useReadings() hooks
+- Responsive grid: 2x2 desktop, stacked mobile
+- Show Skeleton placeholders while loading
+- Verify with `npm run build`
+**Files:** web/src/pages/dashboard.tsx
+**Result:** Success — 4 summary cards with Skeleton loading, responsive grid, build passes

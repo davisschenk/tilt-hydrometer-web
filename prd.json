@@ -136,7 +136,7 @@
         "Latest Reading card shows most recent temperature and gravity \u2014 verify by reading source",
         "Loading skeleton placeholders shown while queries are pending \u2014 verify by throttling network in devtools"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Dashboard",
