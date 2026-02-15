@@ -182,3 +182,13 @@
 - Verify with `sudo docker compose config`
 **Files:** docker-compose.yml
 **Result:** Success — valid config with db + server services
+
+## Working on: Multi-stage Dockerfile with cargo-chef
+**Plan:**
+- Create server/Dockerfile with 4 stages: chef, planner, builder, runtime
+- Uses cargo-chef for dependency caching
+- Builder copies full workspace (shared crate needed)
+- Runtime is debian:bookworm-slim with libssl3 + ca-certificates
+- Verify with `sudo docker build -f server/Dockerfile .`
+**Files:** server/Dockerfile
+**Result:** Success — 4-stage build completes, image built
