@@ -211,3 +211,12 @@
 - Verify with `cargo check -p server`
 **Files:** server/src/routes/hydrometers.rs, server/src/routes/mod.rs, server/src/main.rs
 **Result:** Success
+
+## Working on: Brews CRUD routes
+**Plan:**
+- Create server/src/routes/brews.rs with GET (list + ?status filter), POST, GET/<id>, PUT/<id>, DELETE/<id>
+- Routes use brew_service functions
+- Register in routes/mod.rs and mount in main.rs
+- Verify with `cargo check -p server`
+**Files:** server/src/routes/brews.rs, server/src/routes/mod.rs, server/src/main.rs
+**Result:** Success

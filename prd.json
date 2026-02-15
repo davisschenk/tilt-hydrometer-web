@@ -169,7 +169,7 @@
         "GET /brews/<id> returns brew detail with latest reading data — verify with integration test",
         "PUT /brews/<id> updates and returns 200 — verify with integration test"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Server-API",
