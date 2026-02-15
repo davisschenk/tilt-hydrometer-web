@@ -371,3 +371,11 @@
 - Verify with `npm run build`
 **Files:** web/src/components/layout/page-header.tsx, web/src/components/layout/breadcrumbs.tsx, web/src/pages/*.tsx
 **Result:** Success — PageHeader + Breadcrumbs components, all pages updated, build passes
+
+## Working on: Toast notification system
+**Plan:**
+- Add Sonner Toaster component to app-shell.tsx
+- Create web/src/lib/toast.ts with success/error/info helpers wrapping Sonner
+- Verify with `npm run build`
+**Files:** web/src/components/layout/app-shell.tsx, web/src/lib/toast.ts
+**Result:** Success — Sonner Toaster in app shell, toast helper with success/error/info, build passes

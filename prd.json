@@ -123,7 +123,7 @@
         "Toasts auto-dismiss after 4 seconds \u2014 verify by observing behavior",
         "npm run build succeeds \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Dashboard",
