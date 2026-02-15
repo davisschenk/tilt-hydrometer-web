@@ -262,3 +262,12 @@
 - Verify with `cargo test -p client`
 **Files:** client/src/buffer.rs, client/src/main.rs
 **Result:** Success — 13 tests pass (7 scanner + 6 buffer/backoff)
+
+## Working on: Main scan-upload loop
+**Plan:**
+- Wire together scanner, uploader, buffer, backoff in main.rs
+- Loop: scan_once → prepend buffered readings → upload_batch → on success reset backoff, on failure buffer + backoff → sleep
+- Handle Ctrl+C via tokio::signal::ctrl_c for graceful shutdown
+- Verify with `cargo check -p client`
+**Files:** client/src/main.rs
+**Result:** Success — BLE-Client group complete!

@@ -332,7 +332,7 @@
         "Sleep interval matches --scan-interval CLI arg — verify by reading source",
         "cargo check -p client succeeds with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",
