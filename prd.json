@@ -373,7 +373,7 @@
         "--sim-colors, --sim-og, --sim-target-fg, --sim-temp args parsed correctly — verify by adding trace log and checking output",
         "Without --simulate, client still attempts BLE scanner initialization — verify by running without flag"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Client-Simulate",

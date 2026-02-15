@@ -581,3 +581,13 @@ Appended 4 new tasks to prd.json under group "Client-Simulate":
 2. Create simulator module with fermentation curve generation
 3. Wire simulator into main loop as alternative to BLE scanner
 4. Unit tests for simulator module
+
+## Working on: Add --simulate CLI flag and simulator configuration args
+**Plan:**
+- Add `--simulate` bool flag to Args struct in client/src/main.rs
+- Add `--sim-colors` (String, default "Red"), `--sim-og` (f64, default 1.055), `--sim-target-fg` (f64, default 1.012), `--sim-temp` (f64, default 68.0)
+- Log info message distinguishing simulate vs BLE mode
+- Only skip BLE init when --simulate is set; otherwise unchanged behavior
+- Verify with `cargo build -p client`
+**Files:** client/src/main.rs
+**Result:** Success — 5 new clap args (--simulate, --sim-colors, --sim-og, --sim-target-fg, --sim-temp), mode-aware logging, cargo build passes
