@@ -162,7 +162,7 @@
         "Multiple brews render as separate colored lines with legend \u2014 verify by viewing with multiple active brews",
         "Chart fetches readings with since parameter for last 24h \u2014 verify by inspecting network requests"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Dashboard",

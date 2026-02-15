@@ -400,3 +400,15 @@
 - Verify with `npm run build`
 **Files:** web/src/pages/dashboard.tsx
 **Result:** Success — active brews list with color dots, gravity, days active, empty state, build passes
+
+## Working on: Recent readings mini-chart
+**Plan:**
+- Create web/src/components/dashboard/recent-readings-chart.tsx using Recharts LineChart
+- Fetch readings from last 24h via useReadings with since param
+- Group by brew, render separate colored lines with legend
+- X-axis: time (HH:mm via date-fns), Y-axis: specific gravity
+- Show Skeleton while loading, empty state when no data
+- Add to dashboard.tsx below active brews section
+- Verify with `npm run build`
+**Files:** web/src/components/dashboard/recent-readings-chart.tsx, web/src/pages/dashboard.tsx
+**Result:** Success — Recharts LineChart with 24h readings, grouped by brew, color-coded lines, build passes
