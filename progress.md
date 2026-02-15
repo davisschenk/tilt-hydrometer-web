@@ -341,3 +341,14 @@
 - Verify with `npm run build`
 **Files:** web/src/main.tsx, web/src/App.tsx, web/src/pages/*.tsx
 **Result:** Success — 6 page components, BrowserRouter + Routes, build passes
+
+## Working on: App shell with sidebar navigation
+**Plan:**
+- Create web/src/components/layout/app-shell.tsx with sidebar + main content area
+- Sidebar: app title, nav links (Dashboard, Brews, Hydrometers) with Lucide icons
+- Active route highlighting via useLocation + NavLink
+- Use React Router Outlet for nested route rendering
+- Refactor App.tsx to use layout route wrapping all pages in AppShell
+- Verify with `npm run build`
+**Files:** web/src/components/layout/app-shell.tsx, web/src/App.tsx
+**Result:** Success — sidebar with NavLink active highlighting, layout route with Outlet, build passes

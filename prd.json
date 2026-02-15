@@ -85,7 +85,7 @@
         "Lucide icons rendered next to each nav label \u2014 verify by viewing in browser",
         "React Router Outlet renders child route content \u2014 verify by navigating between routes"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Layout-Navigation",
