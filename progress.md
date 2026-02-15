@@ -455,3 +455,13 @@
 - Verify with `npm run build`
 **Files:** web/src/pages/brew-detail.tsx
 **Result:** Success — stats grid, status badge, action buttons, dates, notes, readings placeholder, build passes
+
+## Working on: Edit brew dialog with inline updates
+**Plan:**
+- Create web/src/components/brew/edit-brew-dialog.tsx as shadcn Dialog
+- Pre-fill fields: Name, Style, OG, FG, Target FG, ABV, Notes, Status (select)
+- PUT /brews/:id on submit, invalidate brew query, toast
+- Wire Edit button in brew-detail.tsx to open dialog
+- Verify with `npm run build`
+**Files:** web/src/components/brew/edit-brew-dialog.tsx, web/src/pages/brew-detail.tsx
+**Result:** Success — Dialog with 8 pre-filled fields, PUT on submit, toast, query invalidation, build passes

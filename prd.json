@@ -231,7 +231,7 @@
         "Success toast shown after edit \u2014 verify by observing",
         "Cancel closes dialog without API call \u2014 verify by clicking Cancel and checking no network request"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Brew-Management",
