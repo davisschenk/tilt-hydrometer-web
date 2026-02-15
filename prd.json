@@ -270,7 +270,7 @@
         "Pagination state resets when brewId changes \u2014 verify by navigating between brews",
         "Empty state shown when no readings exist \u2014 verify with a brew that has no readings"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Readings-Visualization",

@@ -489,3 +489,15 @@
 - Verify with `npm run build`
 **Files:** web/src/components/readings/readings-chart.tsx, web/src/pages/brew-detail.tsx
 **Result:** Success — dual-axis LineChart, time range buttons, tooltips, responsive, build passes
+
+## Working on: Readings data table with pagination
+**Plan:**
+- Create web/src/components/readings/readings-table.tsx with shadcn Table
+- Columns: Recorded At, Temperature °F, Gravity SG, RSSI
+- Sort by recorded_at DESC, client-side pagination (25/page) with Prev/Next
+- Reset pagination on brewId change
+- Accept brewId prop, reuse useReadings
+- Add below chart in brew-detail.tsx
+- Verify with `npm run build`
+**Files:** web/src/components/readings/readings-table.tsx, web/src/pages/brew-detail.tsx
+**Result:** Success — Table with 4 columns, DESC sort, 25/page pagination, empty state, build passes
