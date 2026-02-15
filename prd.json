@@ -197,7 +197,7 @@
         "ReadingService::find_filtered with time range returns correct results — verify with unit test",
         "All From<Model> for DTO conversions are implemented — verify cargo check -p server passes"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Shared-Types",

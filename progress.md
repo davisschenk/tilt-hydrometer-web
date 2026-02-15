@@ -153,3 +153,14 @@
 - Verify with `cargo check -p server` (can't run without live DB in check mode)
 **Files:** server/src/main.rs, server/src/routes/mod.rs
 **Result:** Success
+
+## Working on: Service layer with SeaORM repository pattern
+**Plan:**
+- Create server/src/services/mod.rs, hydrometer_service.rs, brew_service.rs, reading_service.rs
+- Each service takes &DatabaseConnection, returns Result types
+- Implement CRUD: find_all, find_by_id, create, update, delete for hydrometers/brews
+- batch_create and find_filtered for readings
+- From<Model> conversions to shared DTOs
+- Verify with `cargo check -p server`
+**Files:** server/src/services/*.rs, server/src/main.rs, shared/src/lib.rs (added TiltColor::from_str)
+**Result:** Success
