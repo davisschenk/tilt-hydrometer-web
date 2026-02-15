@@ -92,3 +92,13 @@
 - Verify with `cargo test -p shared`
 **Files:** shared/src/lib.rs
 **Result:** Success — 31 tests pass. Shared-Types group complete!
+
+## Working on: SeaORM migration crate setup
+**Plan:**
+- Create migration crate at server/migration/ using `cargo init --lib server/migration`
+- Add sea-orm-migration dependency with runtime-tokio-rustls + sqlx-postgres features
+- Write lib.rs with Migrator struct implementing MigratorTrait (empty migrations list initially)
+- Add migration crate to workspace members and as server dependency
+- Verify with `cargo check -p migration`
+**Files:** server/migration/Cargo.toml, server/migration/src/lib.rs, Cargo.toml
+**Result:** Success

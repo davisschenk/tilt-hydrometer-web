@@ -76,7 +76,7 @@
         "server/migration/src/lib.rs defines Migrator struct implementing MigratorTrait — verify by reading source",
         "cargo check -p migration succeeds with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database-Schema",
