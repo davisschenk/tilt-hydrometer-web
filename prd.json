@@ -44,7 +44,7 @@
         "ReadingResponse interface matches Rust ReadingResponse \u2014 verify by reading interface",
         "npm run build succeeds with no TypeScript errors \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Project-Setup",

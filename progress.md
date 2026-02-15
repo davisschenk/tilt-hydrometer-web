@@ -313,3 +313,12 @@
 - Verify with `npm run build`
 **Files:** web/ (various config and component files)
 **Result:** Success — Tailwind v4, shadcn/ui with 10 components, build passes
+
+## Working on: TypeScript API types mirroring shared crate DTOs
+**Plan:**
+- Create web/src/types/index.ts with TS interfaces matching all Rust shared DTOs
+- TiltColor union, TiltReading, CreateReadingsBatch, BrewStatus, CreateBrew, UpdateBrew, BrewResponse, CreateHydrometer, UpdateHydrometer, HydrometerResponse, ReadingResponse, ReadingsQuery
+- All camelCase field names matching serde serialization
+- Verify with `npm run build`
+**Files:** web/src/types/index.ts
+**Result:** Success — 12 interfaces/types, build passes
