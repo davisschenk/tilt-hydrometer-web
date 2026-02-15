@@ -65,7 +65,7 @@
         ".gitignore contains target/, .env entries — verify by reading file",
         "cargo build --workspace succeeds with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database-Schema",

@@ -38,3 +38,11 @@
 **Files:** client/Cargo.toml
 **Note:** Required `sudo apt-get install libdbus-1-dev` for btleplug's dbus dependency on Linux.
 **Result:** Success
+
+## Working on: Environment and config files
+**Plan:**
+- Create .env.example with DATABASE_URL, ROCKET_SECRET_KEY, ROCKET_PORT, RUST_LOG, DB_PASSWORD placeholders with comments
+- .gitignore already exists from cycle 1 — verify it has target/, .env entries
+- Verify with `cargo build --workspace`
+**Files:** .env.example, .gitignore
+**Result:** Success
