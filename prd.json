@@ -319,7 +319,7 @@
         "Backoff resets to initial on successful upload — verify with unit test",
         "cargo test -p client passes with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "BLE-Client",

@@ -251,3 +251,14 @@
 - Verify with `cargo check -p client`
 **Files:** client/src/uploader.rs, client/src/main.rs
 **Result:** Success
+
+## Working on: Retry logic with exponential backoff and local buffer
+**Plan:**
+- Create client/src/buffer.rs with ReadingBuffer (bounded VecDeque<TiltReading>)
+- push_batch(): append readings, drop oldest if at capacity
+- drain_all(): return all buffered readings and clear
+- Backoff struct: initial 1s, max 60s, factor 2x, reset on success
+- Unit tests: new, push_batch, drain_all, capacity overflow, backoff doubling, backoff reset
+- Verify with `cargo test -p client`
+**Files:** client/src/buffer.rs, client/src/main.rs
+**Result:** Success — 13 tests pass (7 scanner + 6 buffer/backoff)
