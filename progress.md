@@ -591,3 +591,15 @@ Appended 4 new tasks to prd.json under group "Client-Simulate":
 - Verify with `cargo build -p client`
 **Files:** client/src/main.rs
 **Result:** Success — 5 new clap args (--simulate, --sim-colors, --sim-og, --sim-target-fg, --sim-temp), mode-aware logging, cargo build passes
+
+## Working on: Create simulator module with fermentation curve generation
+**Plan:**
+- Add `rand` dependency to client crate via `cargo add`
+- Create client/src/simulator.rs with TiltSimulator struct
+- Exponential decay gravity curve: gravity = target_fg + (og - target_fg) * e^(-k*t) where k chosen so ~95% attenuation at 14 days
+- Temperature jitter ±0.5°F, gravity noise ±0.001, RSSI random -80..-60
+- Track elapsed time via Instant::now() on construction
+- Register module in main.rs
+- Verify with `cargo build -p client`
+**Files:** client/src/simulator.rs, client/src/main.rs, client/Cargo.toml
+**Result:** Success — TiltSimulator with exponential decay gravity curve, temp jitter, RSSI simulation, build passes (unused warnings expected until wiring)

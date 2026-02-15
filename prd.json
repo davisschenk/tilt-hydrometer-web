@@ -387,7 +387,7 @@
         "Temperature values stay within base_temp ± 1.0°F — verify via unit test",
         "RSSI values are in range -80..=-60 — verify via unit test"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Client-Simulate",
