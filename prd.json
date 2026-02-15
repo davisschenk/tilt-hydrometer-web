@@ -277,7 +277,7 @@
         "tracing-subscriber is initialized and logs appear on stdout — verify by observing startup log line",
         "cargo check -p client succeeds with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "BLE-Client",

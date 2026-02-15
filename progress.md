@@ -164,3 +164,13 @@
 - Verify with `cargo check -p server`
 **Files:** server/src/services/*.rs, server/src/main.rs, shared/src/lib.rs (added TiltColor::from_str)
 **Result:** Success
+
+## Working on: CLI argument parsing with clap
+**Plan:**
+- Rewrite client/src/main.rs with clap-derived Args struct
+- Args: --server-url (required), --scan-interval (default 15), --log-level (default "info"), --buffer-size (default 100)
+- Init tracing-subscriber with log level, print startup banner
+- Add env-filter feature to tracing-subscriber for client
+- Verify with `cargo check -p client`
+**Files:** client/src/main.rs
+**Result:** Success — `--help` shows all 4 args with correct defaults
