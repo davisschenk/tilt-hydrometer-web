@@ -230,3 +230,14 @@
 - Verify with `cargo check -p server`
 **Files:** server/src/routes/readings.rs, server/src/routes/mod.rs, server/src/main.rs
 **Result:** Success — Server-API group complete!
+
+## Working on: BLE scanner with btleplug and Tilt UUID filtering
+**Plan:**
+- Create client/src/scanner.rs with TiltScanner struct
+- new() discovers BLE adapter, scan_once(duration) scans and returns Vec<TiltReading>
+- Parse iBeacon from ManufacturerSpecificData (Apple 0x004C): UUID/major/minor/tx_power
+- Filter by 8 known Tilt UUIDs via TiltColor::from_uuid()
+- Unit tests for iBeacon parsing with known byte sequences
+- Verify with `cargo check -p client`
+**Files:** client/src/scanner.rs, client/src/main.rs
+**Result:** Success — 7 iBeacon parsing tests pass

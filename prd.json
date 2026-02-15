@@ -291,7 +291,7 @@
         "Gravity is u16 big-endian from minor / 1000.0 — verify with unit test: bytes [0x03, 0xF8] → 1.016",
         "cargo check -p client succeeds with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "BLE-Client",
