@@ -352,3 +352,13 @@
 - Verify with `npm run build`
 **Files:** web/src/components/layout/app-shell.tsx, web/src/App.tsx
 **Result:** Success — sidebar with NavLink active highlighting, layout route with Outlet, build passes
+
+## Working on: Responsive mobile navigation
+**Plan:**
+- Install shadcn Sheet component
+- Update app-shell.tsx: add mobile header with hamburger (Menu icon) visible below md breakpoint
+- Clicking hamburger opens Sheet with same nav links
+- Sheet closes on link click via state management
+- Verify with `npm run build`
+**Files:** web/src/components/layout/app-shell.tsx
+**Result:** Success — Sheet mobile nav, hamburger menu, closes on link click, build passes

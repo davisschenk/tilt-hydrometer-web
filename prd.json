@@ -98,7 +98,7 @@
         "Sheet closes when a nav link is clicked \u2014 verify by clicking a link",
         "Sheet closes on outside click / overlay click \u2014 verify by clicking overlay"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Layout-Navigation",
