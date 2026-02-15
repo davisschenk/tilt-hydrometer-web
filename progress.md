@@ -271,3 +271,14 @@
 - Verify with `cargo check -p client`
 **Files:** client/src/main.rs
 **Result:** Success — BLE-Client group complete!
+
+## Working on: Client systemd service unit file
+**Plan:**
+- Create client/tilt-client.service with [Unit], [Service], [Install] sections
+- After=network-online.target bluetooth.target, Wants=network-online.target
+- ExecStart=/usr/local/bin/tilt-client --server-url http://YOUR_SERVER:8000
+- Restart=always, RestartSec=10, Environment for RUST_LOG
+- Installation instructions in comments at top
+- Verify by reading file for correctness
+**Files:** client/tilt-client.service
+**Result:** Success

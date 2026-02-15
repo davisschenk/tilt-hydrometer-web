@@ -383,7 +383,7 @@
         "ExecStart points to binary with --server-url placeholder — verify by reading file",
         "Installation instructions are in comments at top of file — verify by reading file"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Infrastructure",
