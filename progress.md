@@ -633,3 +633,17 @@ Appended 3 new tasks to prd.json under group "Justfile":
 1. Create justfile with database and Docker infrastructure recipes
 2. Add dev workflow recipes to justfile
 3. Add test and code quality recipes to justfile
+
+## Working on: Create justfile with database and Docker infrastructure recipes
+**Plan:**
+- Check if `just` is installed
+- Create `justfile` at project root with `set dotenv-load`
+- Default recipe: list all recipes
+- `db-up`: docker compose up -d db, wait for healthy
+- `db-down`: docker compose down
+- `db-migrate`: sea-orm-cli migrate up
+- `db-entities`: sea-orm-cli generate entity to server/src/models/entities with --with-serde both
+- `db-reset`: db-down, db-up, db-migrate
+- Verify with `just --list`
+**Files:** justfile
+**Result:** Success — justfile with dotenv-load, default, db-up, db-down, db-migrate, db-entities, db-reset recipes, `just --list` works

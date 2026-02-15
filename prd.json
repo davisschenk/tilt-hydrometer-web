@@ -424,7 +424,7 @@
         "`just db-down` stops containers — verify by running command",
         "Recipes use dotenv-load for DATABASE_URL — verify by reading justfile"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Justfile",
