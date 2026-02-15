@@ -142,3 +142,14 @@
 **Files:** docker-compose.yml, server/src/models/entities/*.rs, server/src/models/mod.rs
 **Note:** Started Postgres via existing docker container, ran `sea-orm-cli migrate up`, then `sea-orm-cli generate entity --with-serde both`. Also added migration binary (main.rs + tokio + async-std deps).
 **Result:** Success — Database-Schema group complete!
+
+## Working on: Rocket application bootstrap with SeaORM database pool
+**Plan:**
+- Rewrite server/src/main.rs: async Rocket launch, dotenvy, tracing-subscriber init
+- SeaORM DatabaseConnection as managed state via DATABASE_URL
+- CORS fairing via rocket_cors (permissive for dev)
+- Health check GET /api/v1/health returning JSON {"status":"ok"}
+- JSON catchers for 404, 422, 500
+- Verify with `cargo check -p server` (can't run without live DB in check mode)
+**Files:** server/src/main.rs, server/src/routes/mod.rs
+**Result:** Success

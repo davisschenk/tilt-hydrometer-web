@@ -140,7 +140,7 @@
         "JSON catchers return {\"error\":\"...\"} for 404, 422, 500 — verify with curl to unknown route returns JSON 404",
         "tracing output appears on stdout — verify by observing log lines on startup"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Server-API",
