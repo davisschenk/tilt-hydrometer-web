@@ -241,3 +241,13 @@
 - Verify with `cargo check -p client`
 **Files:** client/src/scanner.rs, client/src/main.rs
 **Result:** Success — 7 iBeacon parsing tests pass
+
+## Working on: HTTP uploader with batch POST
+**Plan:**
+- Create client/src/uploader.rs with Uploader struct (reqwest::Client + server_url)
+- upload_batch(&[TiltReading]) POSTs JSON to {server_url}/api/v1/readings
+- Typed UploadError enum: Network, ServerError(StatusCode), Deserialize
+- Log request/response via tracing
+- Verify with `cargo check -p client`
+**Files:** client/src/uploader.rs, client/src/main.rs
+**Result:** Success
