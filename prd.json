@@ -149,7 +149,7 @@
         "Empty state shown with 'Start a Brew' button when no active brews \u2014 verify by testing with empty API response",
         "Color dot matches the hydrometer's TiltColor \u2014 verify by viewing with colored hydrometers"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Dashboard",

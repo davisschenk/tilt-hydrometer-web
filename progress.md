@@ -390,3 +390,13 @@
 - Verify with `npm run build`
 **Files:** web/src/pages/dashboard.tsx
 **Result:** Success — 4 summary cards with Skeleton loading, responsive grid, build passes
+
+## Working on: Active brews quick-view list
+**Plan:**
+- Add section below summary cards in dashboard.tsx
+- Show compact list of active brews: name, color dot, current gravity, days active, link to detail
+- Empty state with "Start a Brew" button linking to /brews/new
+- Reuse useBrews("Active") data already fetched
+- Verify with `npm run build`
+**Files:** web/src/pages/dashboard.tsx
+**Result:** Success — active brews list with color dots, gravity, days active, empty state, build passes
