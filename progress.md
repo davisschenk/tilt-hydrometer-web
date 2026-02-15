@@ -20,3 +20,12 @@
 - Verify with `cargo check -p shared`
 **Files:** shared/Cargo.toml, shared/src/lib.rs
 **Result:** Success
+
+## Working on: Server crate dependencies
+**Plan:**
+- `cargo add` rocket (json+secrets), sea-orm (sqlx-postgres, runtime-tokio-rustls, macros), sea-orm-migration, rocket_cors, serde (derive), serde_json, chrono (serde), uuid (v4+serde), dotenvy, tracing, tracing-subscriber, anyhow to server crate
+- `cargo add --path ../shared` to server crate
+- Update server/src/main.rs to minimally reference shared so the dep is used
+- Verify with `cargo check -p server`
+**Files:** server/Cargo.toml, server/src/main.rs
+**Result:** Success

@@ -29,7 +29,7 @@
         "server/Cargo.toml lists shared as path dependency '../shared' — verify by reading Cargo.toml",
         "cargo check -p server succeeds with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Workspace-Scaffolding",
