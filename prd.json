@@ -436,7 +436,7 @@
         "`just client-sim` starts client in simulate mode — verify by running and checking log output",
         "`just clean` removes build artifacts — verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Justfile",

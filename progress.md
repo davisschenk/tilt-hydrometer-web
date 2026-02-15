@@ -647,3 +647,15 @@ Appended 3 new tasks to prd.json under group "Justfile":
 - Verify with `just --list`
 **Files:** justfile
 **Result:** Success — justfile with dotenv-load, default, db-up, db-down, db-migrate, db-entities, db-reset recipes, `just --list` works
+
+## Working on: Add dev workflow recipes to justfile
+**Plan:**
+- Add `server` recipe: cargo run -p server
+- Add `client-sim` recipe: cargo run -p client -- --simulate with defaults (server-url, scan-interval 5, sim-colors Red,Blue)
+- Add `web` recipe: cd web && npm run dev
+- Add `dev` recipe: comment noting to run server/client-sim/web in separate terminals
+- Add `build` recipe: cargo build --workspace && cd web && npm run build
+- Add `clean` recipe: cargo clean && rm -rf web/dist
+- Verify with `just --list` and `just build`
+**Files:** justfile
+**Result:** Success — server, client-sim, web, dev, build, clean recipes added, `just --list` and `just build` work
