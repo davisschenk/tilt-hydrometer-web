@@ -111,3 +111,13 @@
 - Verify with `cargo check -p migration` (can't run migrate up without a live DB)
 **Files:** server/migration/src/m20260215_000001_create_hydrometers.rs, server/migration/src/lib.rs
 **Result:** Success
+
+## Working on: Create brews table migration
+**Plan:**
+- Create m20260215_000002_create_brews.rs migration
+- Columns: id (UUID PK), name (VARCHAR NOT NULL), style (VARCHAR nullable), og/fg/target_fg/abv (DOUBLE nullable), status (VARCHAR NOT NULL DEFAULT 'Active'), start_date/end_date (TIMESTAMPTZ nullable), notes (TEXT nullable), hydrometer_id (UUID NOT NULL FK→hydrometers.id), created_at/updated_at (TIMESTAMPTZ NOT NULL DEFAULT now())
+- Indexes on hydrometer_id and status
+- Register in Migrator
+- Verify with `cargo check -p migration`
+**Files:** server/migration/src/m20260215_000002_create_brews.rs, server/migration/src/lib.rs
+**Result:** Success

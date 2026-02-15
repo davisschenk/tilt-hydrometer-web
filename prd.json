@@ -101,7 +101,7 @@
         "Indexes on hydrometer_id and status exist — verify via pg_indexes",
         "sea-orm-cli migrate up succeeds with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database-Schema",
