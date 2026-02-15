@@ -1,402 +1,367 @@
 {
+  "_note": "Web frontend backlog. Backend backlog archived in prd-backend.json.",
   "project_meta": {
-    "name": "tilt-hydrometer-platform",
+    "name": "tilt-hydrometer-web",
     "version": "0.1.0",
     "ralph_type": "opencode",
-    "opencode_session_id": "ralph-deep-init-2026-02-14"
+    "opencode_session_id": "ralph-deep-init-web-2026-02-14"
   },
   "backlog": [
     {
-      "group": "Workspace-Scaffolding",
-      "feature": "Cargo workspace with server, client, and shared crates",
-      "description": "Create the root Cargo.toml workspace manifest referencing three member crates: server, client, and shared. Each crate gets its own Cargo.toml with the correct package name, edition (2021), and an empty src/main.rs (server, client) or src/lib.rs (shared). The workspace must compile with cargo build --workspace.",
+      "group": "Project-Setup",
+      "feature": "Initialize Vite React TypeScript project",
+      "description": "Create the web/ directory using Vite with React and TypeScript template. Configure strict TypeScript via tsconfig.json. Install core dependencies: react-router-dom, @tanstack/react-query, recharts, date-fns, lucide-react. Set up VITE_API_URL environment variable with default to http://localhost:8000/api/v1. Verify the dev server starts with npm run dev.",
       "acceptance_criteria": [
-        "Root Cargo.toml defines [workspace] with members = ['server', 'client', 'shared'] — verify by reading Cargo.toml",
-        "server/Cargo.toml exists with package name 'server' and edition '2021' — verify with cargo metadata",
-        "client/Cargo.toml exists with package name 'client' and edition '2021' — verify with cargo metadata",
-        "shared/Cargo.toml exists with package name 'shared' and edition '2021' — verify with cargo metadata",
-        "cargo build --workspace succeeds with exit code 0"
+        "web/ directory exists with Vite React TS project \u2014 verify with ls web/package.json and web/tsconfig.json",
+        "TypeScript strict mode enabled in tsconfig.json \u2014 verify by reading compilerOptions.strict = true",
+        "All core dependencies installed (react-router-dom, @tanstack/react-query, recharts, date-fns, lucide-react) \u2014 verify with npm ls in web/",
+        "VITE_API_URL env var configured with default \u2014 verify by reading web/.env or web/src/lib/api.ts",
+        "npm run dev starts Vite dev server without errors \u2014 verify by running command"
       ],
       "passes": true
     },
     {
-      "group": "Workspace-Scaffolding",
-      "feature": "Server crate dependencies",
-      "description": "Add all server dependencies to server/Cargo.toml: rocket (v0.5, features json+secrets), sea-orm (features sqlx-postgres, runtime-tokio-rustls, macros), sea-orm-migration, rocket_cors, serde (derive), serde_json, chrono (serde), uuid (v4+serde), dotenvy, tracing, tracing-subscriber, anyhow. Add shared as a path dependency. Verify cargo check -p server passes.",
+      "group": "Project-Setup",
+      "feature": "Configure TailwindCSS v4 and shadcn/ui",
+      "description": "Install and configure TailwindCSS v4 in the Vite project. Initialize shadcn/ui with 'npx shadcn@latest init' choosing New York style, zinc base color, and CSS variables. Install initial shadcn components: button, card, input, label, badge, separator, dropdown-menu, dialog, table, toast, sonner. Verify Tailwind classes render correctly.",
       "acceptance_criteria": [
-        "server/Cargo.toml lists rocket v0.5 with features json, secrets — verify by reading Cargo.toml",
-        "server/Cargo.toml lists sea-orm with sqlx-postgres, runtime-tokio-rustls, macros features — verify by reading Cargo.toml",
-        "server/Cargo.toml lists shared as path dependency '../shared' — verify by reading Cargo.toml",
-        "cargo check -p server succeeds with exit code 0"
+        "TailwindCSS v4 is installed and configured \u2014 verify by checking web/package.json and that utility classes render in browser",
+        "shadcn/ui initialized with components.json config \u2014 verify by reading web/components.json",
+        "All listed shadcn components installed in web/src/components/ui/ \u2014 verify with ls web/src/components/ui/",
+        "A test page with a shadcn Button renders correctly \u2014 verify by viewing in browser"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Workspace-Scaffolding",
-      "feature": "Client crate dependencies",
-      "description": "Add all client dependencies to client/Cargo.toml: btleplug, reqwest (features json+rustls-tls), tokio (full), clap (derive), tracing, tracing-subscriber, serde (derive), serde_json, chrono. Add shared as a path dependency. Verify cargo check -p client passes.",
+      "group": "Project-Setup",
+      "feature": "TypeScript API types mirroring shared crate DTOs",
+      "description": "Create web/src/types/ directory with TypeScript interfaces that mirror the Rust shared crate DTOs. Define: TiltColor (string union of 8 colors), TiltReading, CreateReadingsBatch, BrewStatus ('Active' | 'Completed' | 'Archived'), CreateBrew, UpdateBrew, BrewResponse, CreateHydrometer, UpdateHydrometer, HydrometerResponse, ReadingResponse, ReadingsQuery. All field names in camelCase matching the serde serialization.",
       "acceptance_criteria": [
-        "client/Cargo.toml lists btleplug — verify by reading Cargo.toml",
-        "client/Cargo.toml lists reqwest with json, rustls-tls features — verify by reading Cargo.toml",
-        "client/Cargo.toml lists clap with derive feature — verify by reading Cargo.toml",
-        "client/Cargo.toml lists shared as path dependency '../shared' — verify by reading Cargo.toml",
-        "cargo check -p client succeeds with exit code 0"
+        "web/src/types/index.ts exports all DTO interfaces \u2014 verify by reading file",
+        "TiltColor is a union type of 8 color strings \u2014 verify by reading type definition",
+        "BrewResponse interface has all fields matching Rust BrewResponse (id, name, style, og, fg, targetFg, abv, status, startDate, endDate, notes, hydrometerId, createdAt, updatedAt, latestReading) \u2014 verify by reading interface",
+        "HydrometerResponse interface matches Rust HydrometerResponse \u2014 verify by reading interface",
+        "ReadingResponse interface matches Rust ReadingResponse \u2014 verify by reading interface",
+        "npm run build succeeds with no TypeScript errors \u2014 verify by running command"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Workspace-Scaffolding",
-      "feature": "Shared crate dependencies and stub types",
-      "description": "Add shared crate dependencies: serde (derive), chrono (serde), uuid (v4+serde). Create src/lib.rs with stub TiltColor enum, placeholder TiltReading struct, and placeholder BrewStatus enum all deriving Serialize/Deserialize. Verify cargo check -p shared passes.",
+      "group": "Project-Setup",
+      "feature": "API client and TanStack Query provider setup",
+      "description": "Create web/src/lib/api.ts with a typed fetch wrapper that prepends VITE_API_URL to all requests, handles JSON parsing, and throws typed errors for non-2xx responses. Create web/src/lib/query-client.ts configuring a QueryClient with sensible defaults (staleTime 30s, retry 1). Wrap the app in QueryClientProvider in main.tsx. Create web/src/hooks/use-brews.ts, use-hydrometers.ts, use-readings.ts with TanStack Query hooks for each resource's CRUD operations.",
       "acceptance_criteria": [
-        "shared/Cargo.toml lists serde with derive, chrono with serde, uuid with v4+serde — verify by reading Cargo.toml",
-        "shared/src/lib.rs defines TiltColor enum with 8 variants — verify by reading source",
-        "shared/src/lib.rs defines TiltReading struct — verify by reading source",
-        "cargo check -p shared succeeds with exit code 0"
+        "web/src/lib/api.ts exports typed fetch functions (apiGet, apiPost, apiPut, apiDelete) \u2014 verify by reading file",
+        "API client reads VITE_API_URL from import.meta.env \u2014 verify by reading file",
+        "QueryClientProvider wraps the app in main.tsx \u2014 verify by reading file",
+        "useBrews() hook returns { data, isLoading, error } from GET /brews \u2014 verify by reading hook file",
+        "useHydrometers() hook exists with list/create/update/delete mutations \u2014 verify by reading hook file",
+        "useReadings() hook accepts query params (brewId, since, until, limit) \u2014 verify by reading hook file",
+        "npm run build succeeds \u2014 verify by running command"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Workspace-Scaffolding",
-      "feature": "Environment and config files",
-      "description": "Create .env.example with DATABASE_URL, ROCKET_SECRET_KEY, ROCKET_PORT, RUST_LOG placeholders. Create .gitignore covering target/, .env, *.swp, and IDE directories. Ensure cargo build --workspace still succeeds.",
+      "group": "Project-Setup",
+      "feature": "React Router configuration with route structure",
+      "description": "Set up React Router v7 in web/src/main.tsx with BrowserRouter. Create route structure: / (dashboard), /brews (brew list), /brews/:id (brew detail), /brews/new (create brew), /hydrometers (hydrometer list). Create placeholder page components in web/src/pages/ for each route. Configure a 404 catch-all route.",
       "acceptance_criteria": [
-        ".env.example contains DATABASE_URL, ROCKET_SECRET_KEY, ROCKET_PORT, RUST_LOG — verify by reading file",
-        ".gitignore contains target/, .env entries — verify by reading file",
-        "cargo build --workspace succeeds with exit code 0"
+        "BrowserRouter configured in main.tsx \u2014 verify by reading file",
+        "Routes defined for /, /brews, /brews/:id, /brews/new, /hydrometers \u2014 verify by reading router config",
+        "Placeholder page components exist in web/src/pages/ (dashboard.tsx, brew-list.tsx, brew-detail.tsx, brew-new.tsx, hydrometer-list.tsx) \u2014 verify with ls",
+        "404 catch-all route renders a not-found page \u2014 verify by reading router config",
+        "Navigation between routes works \u2014 verify by clicking links in browser"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Database-Schema",
-      "feature": "SeaORM migration crate setup",
-      "description": "Create a migration crate under server/migration/ using sea-orm-migration. Set up the Migrator struct and a lib.rs that registers all migrations in order. Add the migration crate as a dependency of the server crate. Verify the migration crate compiles with cargo check -p migration.",
+      "group": "Layout-Navigation",
+      "feature": "App shell with sidebar navigation",
+      "description": "Create web/src/components/layout/app-shell.tsx as the root layout component. It should render a fixed sidebar on the left (collapsible on mobile) and a main content area. The sidebar contains the app logo/title ('Tilt Dashboard'), navigation links (Dashboard, Brews, Hydrometers), and a footer with version info. Use shadcn/ui components and Lucide icons (LayoutDashboard, Beer, Thermometer). The layout should use an Outlet from React Router for nested route rendering.",
       "acceptance_criteria": [
-        "server/migration/Cargo.toml exists with sea-orm-migration dependency — verify by reading Cargo.toml",
-        "server/migration/src/lib.rs defines Migrator struct implementing MigratorTrait — verify by reading source",
-        "cargo check -p migration succeeds with exit code 0"
+        "AppShell component renders sidebar + main content area \u2014 verify by viewing in browser",
+        "Sidebar has nav links: Dashboard (/), Brews (/brews), Hydrometers (/hydrometers) \u2014 verify by reading source and clicking links",
+        "Active route is visually highlighted in sidebar \u2014 verify by navigating and checking active state styling",
+        "Lucide icons rendered next to each nav label \u2014 verify by viewing in browser",
+        "React Router Outlet renders child route content \u2014 verify by navigating between routes"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Database-Schema",
-      "feature": "Create hydrometers table migration",
-      "description": "Write a SeaORM migration that creates the hydrometers table with columns: id (UUID PK, default gen_random_uuid()), color (VARCHAR NOT NULL), name (VARCHAR nullable), temp_offset_f (DOUBLE PRECISION NOT NULL DEFAULT 0), gravity_offset (DOUBLE PRECISION NOT NULL DEFAULT 0), created_at (TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()). Add a unique constraint on color.",
+      "group": "Layout-Navigation",
+      "feature": "Responsive mobile navigation",
+      "description": "Make the sidebar responsive: on screens below md breakpoint, the sidebar collapses into a hamburger menu button in a top header bar. Clicking the hamburger opens a Sheet (shadcn/ui) sliding panel with the same navigation links. The Sheet closes on link click or outside click. Add the shadcn Sheet component if not already installed.",
       "acceptance_criteria": [
-        "Migration file exists in server/migration/src/ and is registered in Migrator — verify by reading source",
-        "Table 'hydrometers' is created with all specified columns and types — verify by running migration against test DB and querying information_schema",
-        "Unique constraint exists on color column — verify by attempting duplicate insert",
-        "sea-orm-cli migrate up succeeds with exit code 0 against a running Postgres"
+        "Sidebar hidden on mobile (below md breakpoint) \u2014 verify by resizing browser window",
+        "Hamburger menu button appears in top header on mobile \u2014 verify by viewing at mobile width",
+        "Clicking hamburger opens Sheet with nav links \u2014 verify by clicking in browser",
+        "Sheet closes when a nav link is clicked \u2014 verify by clicking a link",
+        "Sheet closes on outside click / overlay click \u2014 verify by clicking overlay"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Database-Schema",
-      "feature": "Create brews table migration",
-      "description": "Write a SeaORM migration that creates the brews table with columns: id (UUID PK), name (VARCHAR NOT NULL), style (VARCHAR nullable), og (DOUBLE PRECISION nullable), fg (DOUBLE PRECISION nullable), target_fg (DOUBLE PRECISION nullable), abv (DOUBLE PRECISION nullable), status (VARCHAR NOT NULL DEFAULT 'Active'), start_date (TIMESTAMPTZ nullable), end_date (TIMESTAMPTZ nullable), notes (TEXT nullable), hydrometer_id (UUID NOT NULL FK → hydrometers.id), created_at (TIMESTAMPTZ NOT NULL DEFAULT now()), updated_at (TIMESTAMPTZ NOT NULL DEFAULT now()). Add index on hydrometer_id and status.",
+      "group": "Layout-Navigation",
+      "feature": "Page header component with breadcrumbs",
+      "description": "Create web/src/components/layout/page-header.tsx that accepts title (string), description (optional string), and actions (optional ReactNode for action buttons). Create web/src/components/layout/breadcrumbs.tsx that reads the current route path and renders breadcrumb links (e.g., Dashboard > Brews > My IPA). Use these in all page components for consistent headers.",
       "acceptance_criteria": [
-        "Migration file exists and is registered in Migrator — verify by reading source",
-        "Table 'brews' has all specified columns with correct types — verify via information_schema after migrate up",
-        "Foreign key constraint from hydrometer_id to hydrometers.id exists — verify via pg_constraint or by inserting invalid FK",
-        "Indexes on hydrometer_id and status exist — verify via pg_indexes",
-        "sea-orm-cli migrate up succeeds with exit code 0"
+        "PageHeader renders title and optional description \u2014 verify by reading source and viewing in browser",
+        "PageHeader renders optional action buttons slot on the right \u2014 verify by passing a button as actions prop",
+        "Breadcrumbs component renders path segments as clickable links \u2014 verify by navigating to /brews/:id and seeing breadcrumbs",
+        "Breadcrumb home link goes to / \u2014 verify by clicking"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Database-Schema",
-      "feature": "Create readings table migration",
-      "description": "Write a SeaORM migration that creates the readings table with columns: id (UUID PK), brew_id (UUID nullable FK → brews.id), hydrometer_id (UUID NOT NULL FK → hydrometers.id), temperature_f (DOUBLE PRECISION NOT NULL), gravity (DOUBLE PRECISION NOT NULL), rssi (SMALLINT nullable), recorded_at (TIMESTAMPTZ NOT NULL), created_at (TIMESTAMPTZ NOT NULL DEFAULT now()). Add indexes on brew_id, hydrometer_id, and recorded_at for query performance.",
+      "group": "Layout-Navigation",
+      "feature": "Toast notification system",
+      "description": "Set up the Sonner toast notification system (shadcn/ui's toast solution). Add the Toaster component to the app shell. Create a helper utility web/src/lib/toast.ts that exports success(), error(), and info() functions wrapping Sonner's toast API. Use these in mutation hooks to show success/error feedback on CRUD operations.",
       "acceptance_criteria": [
-        "Migration file exists and is registered in Migrator — verify by reading source",
-        "Table 'readings' has all specified columns — verify via information_schema after migrate up",
-        "FK constraints to brews.id (nullable) and hydrometers.id (not null) exist — verify via pg_constraint",
-        "Indexes on brew_id, hydrometer_id, recorded_at exist — verify via pg_indexes",
-        "sea-orm-cli migrate up succeeds with exit code 0"
+        "Sonner Toaster component rendered in app shell \u2014 verify by reading app-shell.tsx",
+        "toast.success('message') shows a green success toast \u2014 verify by calling from a button click",
+        "toast.error('message') shows a red error toast \u2014 verify by triggering an error",
+        "Toasts auto-dismiss after 4 seconds \u2014 verify by observing behavior",
+        "npm run build succeeds \u2014 verify by running command"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Database-Schema",
-      "feature": "Generate SeaORM entities from schema",
-      "description": "Run sea-orm-cli generate entity to produce Rust entity files for hydrometers, brews, and readings tables. Place them in server/src/models/entities/. Ensure each entity has the correct column types, relations (Hydrometer HasMany Brews, Hydrometer HasMany Readings, Brew HasMany Readings), and derives. Verify cargo check -p server passes with the generated entities.",
+      "group": "Dashboard",
+      "feature": "Dashboard summary cards",
+      "description": "Create web/src/pages/dashboard.tsx as the main landing page. Display summary cards using shadcn Card components: Active Brews count, Total Hydrometers count, Latest Reading (temperature + gravity from most recent reading across all hydrometers), and Readings Today count. Each card uses TanStack Query hooks to fetch data from the API. Show loading skeletons while data loads.",
       "acceptance_criteria": [
-        "server/src/models/entities/hydrometers.rs exists with Model struct matching table schema — verify by reading source",
-        "server/src/models/entities/brews.rs exists with Model struct and Relation to hydrometers — verify by reading source",
-        "server/src/models/entities/readings.rs exists with Model struct and Relations to brews and hydrometers — verify by reading source",
-        "server/src/models/entities/mod.rs re-exports all entity modules — verify by reading source",
-        "cargo check -p server succeeds with exit code 0"
+        "Dashboard page renders 4 summary cards in a responsive grid (2x2 on desktop, stacked on mobile) \u2014 verify by viewing in browser",
+        "Active Brews card shows count from GET /brews?status=Active \u2014 verify by reading source and checking API call",
+        "Total Hydrometers card shows count from GET /hydrometers \u2014 verify by reading source",
+        "Latest Reading card shows most recent temperature and gravity \u2014 verify by reading source",
+        "Loading skeleton placeholders shown while queries are pending \u2014 verify by throttling network in devtools"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Server-API",
-      "feature": "Rocket application bootstrap with SeaORM database pool",
-      "description": "Create server/src/main.rs that launches a Rocket v0.5 instance. Configure a SeaORM DatabaseConnection as managed state (connect using DATABASE_URL from environment via dotenvy). Set up tracing-subscriber for structured logging. Register CORS fairing via rocket_cors allowing all origins in dev. Mount a health-check GET /api/v1/health route that returns JSON { \"status\": \"ok\" }. Register JSON catchers for 404, 422, and 500.",
+      "group": "Dashboard",
+      "feature": "Active brews quick-view list",
+      "description": "Below the summary cards on the dashboard, render a section titled 'Active Brews' showing a compact list of all brews with status=Active. Each row shows: brew name, hydrometer color (as a colored dot), current gravity (from latest reading), days since start_date, and a link to the brew detail page. If no active brews, show an empty state with a 'Start a Brew' button linking to /brews/new.",
       "acceptance_criteria": [
-        "Rocket ignites and binds to ROCKET_PORT — verify with cargo run -p server and curl localhost:PORT/api/v1/health returning 200 {\"status\":\"ok\"}",
-        "SeaORM DatabaseConnection is available as managed state — verify by adding a temporary route that calls db.ping()",
-        "CORS fairing is attached — verify by sending OPTIONS request with Origin header and checking Access-Control headers",
-        "JSON catchers return {\"error\":\"...\"} for 404, 422, 500 — verify with curl to unknown route returns JSON 404",
-        "tracing output appears on stdout — verify by observing log lines on startup"
+        "Active brews section renders below summary cards \u2014 verify by viewing in browser",
+        "Each brew row shows name, color dot, current gravity, days active \u2014 verify by reading source",
+        "Clicking a brew row navigates to /brews/:id \u2014 verify by clicking",
+        "Empty state shown with 'Start a Brew' button when no active brews \u2014 verify by testing with empty API response",
+        "Color dot matches the hydrometer's TiltColor \u2014 verify by viewing with colored hydrometers"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Server-API",
-      "feature": "Hydrometers CRUD routes",
-      "description": "Create server/src/routes/hydrometers.rs with full CRUD: GET /api/v1/hydrometers (list all), POST /api/v1/hydrometers (register new, validated via FromForm/Json guard: color must be valid TiltColor, name optional), GET /api/v1/hydrometers/<id> (by UUID), PUT /api/v1/hydrometers/<id> (update name/offsets, validated), DELETE /api/v1/hydrometers/<id>. All routes use a HydrometerService. Return proper HTTP status codes (200, 201, 404, 422).",
+      "group": "Dashboard",
+      "feature": "Recent readings mini-chart",
+      "description": "Add a Recharts LineChart to the dashboard showing the last 24 hours of gravity readings across all active brews. X-axis is time (formatted with date-fns), Y-axis is specific gravity. Each brew is a separate colored line. Use TanStack Query to fetch readings with since=24h filter. Include a chart legend identifying each brew by name. Show a loading skeleton while data loads.",
       "acceptance_criteria": [
-        "GET /hydrometers returns 200 with JSON array — verify with integration test using Rocket local::asynchronous::Client",
-        "POST /hydrometers with valid payload returns 201 with created hydrometer — verify with integration test",
-        "POST /hydrometers with invalid color returns 422 JSON error — verify with integration test",
-        "GET /hydrometers/<id> returns 200 for existing, 404 for missing — verify with integration test",
-        "PUT /hydrometers/<id> updates fields and returns 200 — verify with integration test",
-        "DELETE /hydrometers/<id> removes record and returns 204 — verify with integration test"
+        "Recharts LineChart renders on dashboard \u2014 verify by viewing in browser",
+        "X-axis shows time labels formatted as HH:mm \u2014 verify by viewing chart",
+        "Y-axis shows specific gravity values (e.g., 1.000\u20131.100) \u2014 verify by viewing chart",
+        "Multiple brews render as separate colored lines with legend \u2014 verify by viewing with multiple active brews",
+        "Chart fetches readings with since parameter for last 24h \u2014 verify by inspecting network requests"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Server-API",
-      "feature": "Brews CRUD routes",
-      "description": "Create server/src/routes/brews.rs with: GET /api/v1/brews (list, optional ?status= filter), POST /api/v1/brews (create, validated: name required, hydrometer_id must exist, status defaults to Active), GET /api/v1/brews/<id> (detail with latest reading summary), PUT /api/v1/brews/<id> (update metadata/status), DELETE /api/v1/brews/<id> (archive). All routes use a BrewService.",
+      "group": "Dashboard",
+      "feature": "Auto-refresh with configurable interval",
+      "description": "Configure the dashboard's TanStack Query hooks with a refetchInterval of 30 seconds so data updates automatically without manual refresh. Add a visual indicator (small pulsing dot or timestamp) showing when data was last refreshed. Add a manual refresh button (RefreshCw icon) that invalidates all dashboard queries immediately.",
       "acceptance_criteria": [
-        "GET /brews returns 200 with JSON array — verify with integration test",
-        "GET /brews?status=Active filters correctly — verify with integration test inserting Active and Completed brews",
-        "POST /brews with valid payload returns 201 — verify with integration test",
-        "POST /brews with missing name returns 422 — verify with integration test",
-        "POST /brews with non-existent hydrometer_id returns 422 — verify with integration test",
-        "GET /brews/<id> returns brew detail with latest reading data — verify with integration test",
-        "PUT /brews/<id> updates and returns 200 — verify with integration test"
+        "Dashboard data auto-refreshes every 30 seconds \u2014 verify by watching network tab for periodic requests",
+        "Last refreshed timestamp displayed on dashboard \u2014 verify by viewing in browser",
+        "Manual refresh button triggers immediate refetch \u2014 verify by clicking and watching network tab",
+        "RefreshCw icon animates (spins) during refetch \u2014 verify by clicking refresh and observing animation"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Server-API",
-      "feature": "Readings ingestion and query routes",
-      "description": "Create server/src/routes/readings.rs with: POST /api/v1/readings (batch insert, accepts JSON array of readings each with hydrometer color, temperature_f, gravity, rssi, recorded_at — auto-resolves hydrometer by color, optionally links to active brew), GET /api/v1/readings (query with filters: brew_id, hydrometer_id, since, until, limit with default 1000, ordered by recorded_at DESC). Use a ReadingsService.",
+      "group": "Brew-Management",
+      "feature": "Brew list page with status filtering",
+      "description": "Create web/src/pages/brew-list.tsx displaying all brews in a shadcn Table. Columns: Name, Style, Hydrometer (color dot + name), Status (Badge with color coding: Active=green, Completed=blue, Archived=gray), OG, Current SG, ABV, Start Date. Add a status filter using shadcn Tabs or ToggleGroup (All, Active, Completed, Archived) that passes ?status= query param to the API. Include a 'New Brew' button in the page header linking to /brews/new. Show loading skeleton rows while data loads and an empty state when no brews exist.",
       "acceptance_criteria": [
-        "POST /readings with valid batch returns 201 with count of inserted readings — verify with integration test",
-        "POST /readings auto-resolves hydrometer by TiltColor — verify by posting with color string and checking hydrometer_id in DB",
-        "POST /readings auto-links to active brew for that hydrometer if one exists — verify with integration test",
-        "GET /readings returns paginated results ordered by recorded_at DESC — verify with integration test",
-        "GET /readings?brew_id=<id> filters by brew — verify with integration test",
-        "GET /readings?since=<ts>&until=<ts> filters by time range — verify with integration test"
+        "Brew list table renders with all specified columns \u2014 verify by viewing in browser with seed data",
+        "Status badges are color-coded (Active=green, Completed=blue, Archived=gray) \u2014 verify by viewing",
+        "Status filter tabs filter the brew list via API query param \u2014 verify by clicking each tab and checking network requests",
+        "Clicking a brew row navigates to /brews/:id \u2014 verify by clicking",
+        "'New Brew' button in header links to /brews/new \u2014 verify by clicking",
+        "Empty state shown when no brews match filter \u2014 verify by selecting a filter with no results"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Server-API",
-      "feature": "Service layer with SeaORM repository pattern",
-      "description": "Create server/src/services/ with hydrometer_service.rs, brew_service.rs, and reading_service.rs. Each service takes a &DatabaseConnection, performs CRUD via SeaORM ActiveModel operations, and returns Result types. Include From<T> conversions between SeaORM entity Models and shared crate DTOs. Service methods: find_all, find_by_id, create, update, delete for hydrometers/brews; batch_create and find_filtered for readings.",
+      "group": "Brew-Management",
+      "feature": "Create brew form page",
+      "description": "Create web/src/pages/brew-new.tsx with a form for creating a new brew. Fields: Name (required text input), Style (optional text input), Hydrometer (required select dropdown populated from GET /hydrometers), OG (optional number input), Target FG (optional number input), Notes (optional textarea). Use shadcn form components (Input, Label, Select, Textarea). On submit, POST to /brews and navigate to the new brew's detail page on success. Show validation errors inline and a toast on success/failure.",
       "acceptance_criteria": [
-        "HydrometerService::find_all returns Vec of hydrometer DTOs — verify with unit test using SeaORM MockDatabase",
-        "HydrometerService::create inserts and returns created DTO — verify with unit test using MockDatabase",
-        "BrewService::find_filtered with status filter returns correct subset — verify with unit test",
-        "ReadingService::batch_create inserts multiple readings — verify with unit test",
-        "ReadingService::find_filtered with time range returns correct results — verify with unit test",
-        "All From<Model> for DTO conversions are implemented — verify cargo check -p server passes"
+        "Create brew form renders with all specified fields \u2014 verify by viewing in browser",
+        "Hydrometer dropdown populated from API \u2014 verify by checking network request for GET /hydrometers",
+        "Name field is required \u2014 verify by submitting empty form and seeing validation error",
+        "Successful submission POSTs to /brews and redirects to /brews/:id \u2014 verify by filling form and submitting",
+        "Success toast shown on creation \u2014 verify by observing toast after submit",
+        "Error toast shown on API failure \u2014 verify by testing with server down"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Shared-Types",
-      "feature": "TiltColor enum with iBeacon UUID constants",
-      "description": "Implement TiltColor enum in shared/src/lib.rs with 8 variants: Red, Green, Black, Purple, Orange, Blue, Yellow, Pink. Each variant must have an associated const UUID (uuid::Uuid). Implement TiltColor::from_uuid() to look up color from a UUID, and TiltColor::uuid() to get the UUID for a color. Derive Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Hash. Use #[serde(rename_all = \"camelCase\")].",
+      "group": "Brew-Management",
+      "feature": "Brew detail page with readings summary",
+      "description": "Create web/src/pages/brew-detail.tsx that fetches a single brew by ID (GET /brews/:id) and displays its full details. Show: brew name as page title, status badge, style, OG/FG/Target FG/ABV in a stats grid, hydrometer info, start/end dates formatted with date-fns, and notes. Below the details, show a 'Readings' section (placeholder for now \u2014 will be filled by Readings-Visualization group). Add action buttons in the page header: Edit (opens edit dialog), Complete Brew, Archive Brew, Delete Brew (with confirmation dialog).",
       "acceptance_criteria": [
-        "TiltColor has exactly 8 variants matching the Tilt product line — verify by reading source",
-        "TiltColor::uuid() returns correct UUID for each color (Red = A495BB10-..., etc.) — verify with unit test for all 8",
-        "TiltColor::from_uuid() round-trips correctly for all 8 colors — verify with unit test",
-        "TiltColor::from_uuid() returns None for unknown UUIDs — verify with unit test",
-        "Serializes to/from camelCase JSON strings — verify with serde_json::to_string unit test",
-        "cargo test -p shared passes with exit code 0"
+        "Brew detail page fetches and displays brew data \u2014 verify by navigating to /brews/:id",
+        "Stats grid shows OG, FG, Target FG, ABV \u2014 verify by viewing in browser",
+        "Status badge matches brew status \u2014 verify by viewing",
+        "Dates formatted with date-fns (e.g., 'Feb 14, 2026') \u2014 verify by viewing",
+        "Edit button opens edit dialog/form \u2014 verify by clicking",
+        "Delete button shows confirmation dialog before deleting \u2014 verify by clicking",
+        "Complete/Archive buttons update brew status via API \u2014 verify by clicking and checking status change"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Shared-Types",
-      "feature": "TiltReading and CreateReadingsBatch DTOs",
-      "description": "Define TiltReading struct: color (TiltColor), temperature_f (f64), gravity (f64), rssi (Option<i16>), recorded_at (chrono::DateTime<Utc>). Define CreateReadingsBatch as a newtype wrapper around Vec<TiltReading>. Both derive Serialize, Deserialize, Debug, Clone and use #[serde(rename_all = \"camelCase\")]. Include a TiltReading::new() constructor.",
+      "group": "Brew-Management",
+      "feature": "Edit brew dialog with inline updates",
+      "description": "Create web/src/components/brew/edit-brew-dialog.tsx as a shadcn Dialog that pre-fills form fields with the current brew data. Fields: Name, Style, OG, FG, Target FG, ABV, Notes, Status (select). On submit, PUT to /brews/:id. Invalidate the brew detail query on success so the page refreshes. Show toast on success/error. Cancel button closes the dialog without changes.",
       "acceptance_criteria": [
-        "TiltReading struct has all specified fields with correct types — verify by reading source",
-        "CreateReadingsBatch wraps Vec<TiltReading> — verify by reading source",
-        "TiltReading serializes to camelCase JSON — verify with serde_json round-trip unit test",
-        "TiltReading::new() constructs valid instance — verify with unit test",
-        "cargo test -p shared passes with exit code 0"
+        "Edit dialog opens pre-filled with current brew data \u2014 verify by clicking Edit on brew detail page",
+        "All editable fields present: Name, Style, OG, FG, Target FG, ABV, Notes, Status \u2014 verify by viewing dialog",
+        "Submitting sends PUT /brews/:id with updated fields \u2014 verify by editing and checking network request",
+        "Brew detail page refreshes with new data after successful edit \u2014 verify by editing and observing page update",
+        "Success toast shown after edit \u2014 verify by observing",
+        "Cancel closes dialog without API call \u2014 verify by clicking Cancel and checking no network request"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Shared-Types",
-      "feature": "BrewStatus enum and Brew DTOs",
-      "description": "Define BrewStatus enum with variants Active, Completed, Archived. Derive Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq. Define API DTOs: CreateBrew (name, style?, hydrometer_id, og?, target_fg?, notes?), UpdateBrew (name?, style?, og?, fg?, target_fg?, abv?, status?, notes?, end_date?), BrewResponse (all fields including id, timestamps, latest_reading?). All use #[serde(rename_all = \"camelCase\")].",
+      "group": "Brew-Management",
+      "feature": "Delete brew with confirmation",
+      "description": "Create web/src/components/brew/delete-brew-dialog.tsx as a shadcn AlertDialog that confirms deletion. Shows brew name and a warning message. On confirm, DELETE /brews/:id, show success toast, and navigate back to /brews. On cancel, close dialog. Use the useMutation hook with onSuccess callback to invalidate queries and redirect.",
       "acceptance_criteria": [
-        "BrewStatus has 3 variants and serializes correctly — verify with serde_json unit test",
-        "CreateBrew struct has required 'name' and 'hydrometer_id' fields, rest optional — verify by reading source",
-        "UpdateBrew struct has all fields as Option<T> — verify by reading source",
-        "BrewResponse includes id, all brew fields, and optional latest_reading — verify by reading source",
-        "cargo test -p shared passes with exit code 0"
+        "Delete confirmation dialog shows brew name and warning \u2014 verify by clicking Delete on brew detail",
+        "Confirming sends DELETE /brews/:id \u2014 verify by confirming and checking network request",
+        "Success toast and redirect to /brews after deletion \u2014 verify by confirming delete",
+        "Cancel closes dialog without API call \u2014 verify by clicking Cancel",
+        "Brew list refreshes (query invalidated) after deletion \u2014 verify by checking brew is gone from list"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Shared-Types",
-      "feature": "Hydrometer DTOs",
-      "description": "Define API DTOs: CreateHydrometer (color: TiltColor, name: Option<String>), UpdateHydrometer (name: Option<String>, temp_offset_f: Option<f64>, gravity_offset: Option<f64>), HydrometerResponse (id, color, name, temp_offset_f, gravity_offset, created_at). All derive Serialize, Deserialize, Debug, Clone with #[serde(rename_all = \"camelCase\")].",
+      "group": "Readings-Visualization",
+      "feature": "Gravity and temperature line charts on brew detail",
+      "description": "Create web/src/components/readings/readings-chart.tsx using Recharts. Render a dual-axis LineChart: left Y-axis for specific gravity (e.g., 1.000\u20131.100), right Y-axis for temperature (\u00b0F), X-axis for time (formatted with date-fns). Gravity line in blue, temperature line in orange. Accept brewId prop and fetch readings via useReadings(brewId). Support time range selection (Last 24h, Last 7d, Last 30d, All) via buttons that adjust the 'since' query param. Include tooltips showing exact values on hover. Responsive \u2014 fills container width.",
       "acceptance_criteria": [
-        "CreateHydrometer has color (required) and name (optional) — verify by reading source",
-        "UpdateHydrometer has all fields as Option<T> — verify by reading source",
-        "HydrometerResponse includes all hydrometer fields — verify by reading source",
-        "All DTOs serialize/deserialize correctly — verify with serde_json round-trip unit test",
-        "cargo test -p shared passes with exit code 0"
+        "Dual-axis LineChart renders gravity (left axis) and temperature (right axis) \u2014 verify by viewing on brew detail page",
+        "X-axis shows time labels formatted appropriately for the selected range \u2014 verify by viewing chart",
+        "Tooltip on hover shows exact gravity, temperature, and timestamp \u2014 verify by hovering over data points",
+        "Time range selector buttons (24h, 7d, 30d, All) filter the displayed data \u2014 verify by clicking each and watching chart update",
+        "Chart is responsive and fills container width \u2014 verify by resizing browser"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Shared-Types",
-      "feature": "ReadingResponse and query parameter types",
-      "description": "Define ReadingResponse DTO (id, brew_id?, hydrometer_id, color, temperature_f, gravity, rssi?, recorded_at, created_at). Define ReadingsQuery struct for GET /readings filters: brew_id (Option<Uuid>), hydrometer_id (Option<Uuid>), since (Option<DateTime<Utc>>), until (Option<DateTime<Utc>>), limit (Option<u64> default 1000). All with serde camelCase.",
+      "group": "Readings-Visualization",
+      "feature": "Readings data table with pagination",
+      "description": "Create web/src/components/readings/readings-table.tsx showing readings in a shadcn Table below the chart on the brew detail page. Columns: Recorded At (formatted datetime), Temperature (\u00b0F), Gravity (SG), RSSI (if available). Sort by recorded_at DESC by default. Implement client-side pagination (25 rows per page) with Previous/Next buttons. Accept brewId prop and reuse the useReadings hook.",
       "acceptance_criteria": [
-        "ReadingResponse has all specified fields with correct types — verify by reading source",
-        "ReadingsQuery has all filter fields as Option types — verify by reading source",
-        "ReadingsQuery default limit is documented or handled in deserialization — verify by reading source",
-        "All types serialize/deserialize correctly — verify with serde_json unit test",
-        "cargo test -p shared passes with exit code 0"
+        "Readings table renders with Recorded At, Temperature, Gravity, RSSI columns \u2014 verify by viewing on brew detail page",
+        "Rows sorted by recorded_at DESC (newest first) \u2014 verify by checking row order",
+        "Pagination shows 25 rows per page with Previous/Next controls \u2014 verify by navigating pages",
+        "Pagination state resets when brewId changes \u2014 verify by navigating between brews",
+        "Empty state shown when no readings exist \u2014 verify with a brew that has no readings"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "BLE-Client",
-      "feature": "CLI argument parsing with clap",
-      "description": "Set up client/src/main.rs with a clap-derived Args struct: --server-url (required, String), --scan-interval (u64 seconds, default 15), --log-level (String, default 'info'), --buffer-size (usize, default 100). Initialize tracing-subscriber with the specified log level. Parse args and print startup banner with config summary via tracing::info!.",
+      "group": "Readings-Visualization",
+      "feature": "Fermentation progress indicators",
+      "description": "Create web/src/components/readings/fermentation-stats.tsx that calculates and displays fermentation metrics from the readings data. Show: Current Gravity (latest reading), Apparent Attenuation (% = (OG - current) / (OG - 1.0) * 100), Estimated ABV ((OG - current) * 131.25), Temperature Trend (arrow up/down/steady based on last 3 readings), Time Since Last Reading (formatted with date-fns formatDistanceToNow). Display as a row of stat cards above the chart on the brew detail page.",
       "acceptance_criteria": [
-        "Running client --help prints usage with all 4 arguments described — verify by running cargo run -p client -- --help",
-        "--server-url is required; omitting it produces an error — verify by running without it",
-        "--scan-interval defaults to 15 if not provided — verify with unit test or manual run",
-        "--log-level defaults to 'info' — verify with unit test or manual run",
-        "tracing-subscriber is initialized and logs appear on stdout — verify by observing startup log line",
-        "cargo check -p client succeeds with exit code 0"
+        "Fermentation stats render as a row of cards above the chart \u2014 verify by viewing brew detail page",
+        "Current Gravity shows the latest reading's gravity value \u2014 verify by checking against API data",
+        "Apparent Attenuation calculated correctly from OG and current gravity \u2014 verify with known values",
+        "Estimated ABV calculated correctly \u2014 verify with known values (e.g., OG 1.050, FG 1.010 = ~5.25%)",
+        "Temperature Trend shows up/down/steady arrow \u2014 verify by checking with readings that have varying temperatures",
+        "Time Since Last Reading shows human-readable duration (e.g., '5 minutes ago') \u2014 verify by viewing"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "BLE-Client",
-      "feature": "BLE scanner with btleplug and Tilt UUID filtering",
-      "description": "Create client/src/scanner.rs that uses btleplug to perform BLE scans. Implement a TiltScanner struct that: discovers the Bluetooth adapter, starts a scan, listens for ManufacturerSpecificData matching Apple's company ID (0x004C), parses the iBeacon payload to extract UUID/major/minor/tx_power, filters by the 8 known Tilt UUIDs, and returns parsed TiltReading structs (using shared crate types). Include a scan_once() method that scans for a configurable duration and returns Vec<TiltReading>.",
+      "group": "Readings-Visualization",
+      "feature": "Gravity target line and completion detection",
+      "description": "Enhance the readings chart to display the brew's Target FG as a horizontal dashed reference line (green) when set. When the current gravity reaches or goes below the Target FG, show a visual alert banner on the brew detail page: 'Target gravity reached! Consider completing this brew.' with a 'Complete Brew' action button that sets the brew status to Completed via PUT /brews/:id.",
       "acceptance_criteria": [
-        "TiltScanner struct exists with new() and scan_once() methods — verify by reading source",
-        "iBeacon parsing correctly extracts UUID, major (temp_f), minor (gravity/1000.0), tx_power from manufacturer data — verify with unit test using known byte sequences",
-        "Only advertisements matching one of 8 Tilt UUIDs are returned — verify with unit test filtering mock data",
-        "Temperature is u16 big-endian from major field — verify with unit test: bytes [0x00, 0x44] → 68°F",
-        "Gravity is u16 big-endian from minor / 1000.0 — verify with unit test: bytes [0x03, 0xF8] → 1.016",
-        "cargo check -p client succeeds with exit code 0"
+        "Target FG dashed line renders on chart when brew has targetFg set \u2014 verify by viewing chart for a brew with targetFg",
+        "Target FG line does not render when targetFg is null \u2014 verify with a brew without targetFg",
+        "Alert banner appears when latest gravity <= targetFg \u2014 verify by checking with appropriate data",
+        "Alert banner 'Complete Brew' button sends PUT to update status \u2014 verify by clicking and checking network",
+        "Alert banner hidden when gravity is above targetFg \u2014 verify with appropriate data"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "BLE-Client",
-      "feature": "HTTP uploader with batch POST",
-      "description": "Create client/src/uploader.rs with an Uploader struct that holds a reqwest::Client and the server base URL. Implement upload_batch(readings: &[TiltReading]) that POSTs JSON to {server_url}/api/v1/readings. Return Result with typed errors for network failure, server error (non-2xx), and deserialization issues. Log request/response details via tracing.",
+      "group": "Hydrometer-Management",
+      "feature": "Hydrometer list page with status indicators",
+      "description": "Create web/src/pages/hydrometer-list.tsx displaying all registered hydrometers in a responsive card grid (not a table \u2014 cards work better for the small number of hydrometers). Each card shows: color name with a large colored circle matching the Tilt color, optional alias name, calibration offsets (temp_offset_f, gravity_offset), registration date formatted with date-fns, and whether it's currently assigned to an active brew (with brew name link). Add a 'Register Hydrometer' button in the page header. Use the useHydrometers() hook.",
       "acceptance_criteria": [
-        "Uploader::new(server_url) creates instance with reqwest::Client — verify by reading source",
-        "upload_batch serializes Vec<TiltReading> as JSON POST body — verify by reading source",
-        "Successful upload (2xx) returns Ok with server response — verify with unit test using mockito or wiremock",
-        "Non-2xx response returns typed error — verify with unit test returning 500 from mock server",
-        "Network failure returns typed error — verify with unit test pointing to unreachable host",
-        "cargo check -p client succeeds with exit code 0"
+        "Hydrometer cards render in a responsive grid (3 columns desktop, 2 tablet, 1 mobile) \u2014 verify by viewing and resizing browser",
+        "Each card shows colored circle matching TiltColor (Red=#FF0000, Green=#00FF00, etc.) \u2014 verify by viewing",
+        "Active brew assignment shown on card with link to brew detail \u2014 verify by clicking brew link",
+        "'Register Hydrometer' button in page header \u2014 verify by viewing",
+        "Empty state shown when no hydrometers registered \u2014 verify with empty API response"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "BLE-Client",
-      "feature": "Retry logic with exponential backoff and local buffer",
-      "description": "Create client/src/buffer.rs with a ReadingBuffer struct wrapping a bounded VecDeque<TiltReading> (max size from CLI --buffer-size). Implement push_batch() that appends readings (dropping oldest if at capacity), drain_all() that returns all buffered readings. In the main loop: on upload failure, push readings to buffer and retry with exponential backoff (initial 1s, max 60s, factor 2x). On next successful upload, drain buffer first.",
+      "group": "Hydrometer-Management",
+      "feature": "Register hydrometer dialog",
+      "description": "Create web/src/components/hydrometer/register-hydrometer-dialog.tsx as a shadcn Dialog with a form. Fields: Color (required Select dropdown with all 8 TiltColor options, each with a colored dot preview), Name/Alias (optional text input). On submit, POST to /hydrometers. Show success toast and invalidate the hydrometer list query. Only show colors that aren't already registered (fetch existing and filter).",
       "acceptance_criteria": [
-        "ReadingBuffer::new(capacity) creates bounded buffer — verify with unit test",
-        "push_batch adds readings, drops oldest when full — verify with unit test filling beyond capacity",
-        "drain_all returns all readings and empties buffer — verify with unit test",
-        "Exponential backoff doubles delay on consecutive failures up to max — verify with unit test simulating failures",
-        "Backoff resets to initial on successful upload — verify with unit test",
-        "cargo test -p client passes with exit code 0"
+        "Register dialog opens from 'Register Hydrometer' button \u2014 verify by clicking button",
+        "Color select shows all 8 TiltColor options with colored dot previews \u2014 verify by opening select",
+        "Already-registered colors are filtered out or disabled \u2014 verify by registering one color and checking it's unavailable",
+        "Successful registration shows toast and new card appears in list \u2014 verify by submitting form",
+        "Name/alias field is optional \u2014 verify by submitting with only color selected"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "BLE-Client",
-      "feature": "Main scan-upload loop",
-      "description": "Wire together the main async loop in client/src/main.rs: parse CLI args → init tracing → create TiltScanner, Uploader, ReadingBuffer → loop { scan_once() → if buffer has readings, prepend them → upload_batch() → on success clear backoff, on failure push to buffer and backoff → sleep(scan_interval) }. Handle Ctrl+C gracefully via tokio::signal for clean shutdown with a final log message.",
+      "group": "Hydrometer-Management",
+      "feature": "Edit hydrometer dialog with calibration offsets",
+      "description": "Create web/src/components/hydrometer/edit-hydrometer-dialog.tsx as a shadcn Dialog for editing hydrometer settings. Fields: Name/Alias (text input), Temperature Offset \u00b0F (number input with step 0.1, help text explaining this adjusts raw temperature readings), Gravity Offset (number input with step 0.001, help text explaining this adjusts raw gravity readings). On submit, PUT to /hydrometers/:id. Show toast on success and invalidate queries.",
       "acceptance_criteria": [
-        "Main loop calls scan_once, attempts upload, handles failure with buffering — verify by reading source control flow",
-        "Ctrl+C triggers graceful shutdown with log message — verify by reading source for tokio::signal::ctrl_c usage",
-        "Buffer is drained on successful upload after previous failures — verify by reading source",
-        "Sleep interval matches --scan-interval CLI arg — verify by reading source",
-        "cargo check -p client succeeds with exit code 0"
+        "Edit dialog opens pre-filled with current hydrometer data \u2014 verify by clicking edit on a hydrometer card",
+        "Temperature Offset input accepts decimal values with step 0.1 \u2014 verify by entering 0.5",
+        "Gravity Offset input accepts decimal values with step 0.001 \u2014 verify by entering 0.002",
+        "Help text explains what each offset does \u2014 verify by reading form labels",
+        "Successful edit updates the card and shows toast \u2014 verify by editing and observing"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Infrastructure",
-      "feature": "Docker Compose with Postgres and server",
-      "description": "Create docker-compose.yml defining two services: 'db' (postgres:16-alpine with POSTGRES_DB=tilt, POSTGRES_USER=tilt, POSTGRES_PASSWORD from env, persistent volume, port 5432) and 'server' (builds from Dockerfile, depends_on db, environment with DATABASE_URL, ROCKET_PORT=8000, ROCKET_SECRET_KEY, RUST_LOG, port 8000). Define a named volume 'pgdata'.",
+      "group": "Hydrometer-Management",
+      "feature": "Delete hydrometer with safety check",
+      "description": "Add a delete button to each hydrometer card that opens a shadcn AlertDialog. If the hydrometer is assigned to an active brew, show a warning: 'This hydrometer is assigned to an active brew. Deleting it will unlink it.' On confirm, DELETE /hydrometers/:id, show toast, and invalidate queries. Disable delete for hydrometers with active brews unless user confirms the warning.",
       "acceptance_criteria": [
-        "docker-compose.yml is valid YAML with 'db' and 'server' services — verify with docker compose config",
-        "db service uses postgres:16-alpine image — verify by reading docker-compose.yml",
-        "db service has persistent volume mount — verify by reading docker-compose.yml",
-        "server service depends_on db — verify by reading docker-compose.yml",
-        "docker compose up -d db starts Postgres successfully — verify with docker compose ps showing healthy"
+        "Delete button visible on each hydrometer card \u2014 verify by viewing",
+        "Confirmation dialog shows hydrometer color and name \u2014 verify by clicking delete",
+        "Warning shown when hydrometer has active brew \u2014 verify with an assigned hydrometer",
+        "Successful deletion removes card and shows toast \u2014 verify by confirming delete",
+        "Cancel closes dialog without API call \u2014 verify by clicking cancel"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "group": "Infrastructure",
-      "feature": "Multi-stage Dockerfile with cargo-chef",
-      "description": "Create server/Dockerfile with 4 stages: (1) chef — FROM lukemathwalker/cargo-chef:latest-rust-1, (2) planner — copies source, runs cargo chef prepare, (3) builder — copies recipe, runs cargo chef cook --release, copies source, builds server binary, (4) runtime — FROM debian:bookworm-slim, installs libssl3 + ca-certificates, copies binary, sets ENTRYPOINT. Ensure it builds the entire workspace so shared crate is available.",
+      "group": "Hydrometer-Management",
+      "feature": "Tilt color utility with hex color mapping",
+      "description": "Create web/src/lib/tilt-colors.ts that exports a mapping from TiltColor string to: hex color code, display name, and a lighter background variant for cards. Colors: Red=#E03131, Green=#2F9E44, Black=#495057, Purple=#7048E8, Orange=#E8590C, Blue=#1971C2, Yellow=#F08C00, Pink=#D6336C. Export a ColorDot component (web/src/components/ui/color-dot.tsx) that renders a small circle with the correct color. Use this everywhere hydrometers are displayed.",
       "acceptance_criteria": [
-        "Dockerfile has 4 named stages (chef, planner, builder, runtime) — verify by reading Dockerfile",
-        "Builder stage copies full workspace for shared crate resolution — verify by reading Dockerfile",
-        "Runtime image is debian:bookworm-slim (minimal) — verify by reading Dockerfile",
-        "docker build -f server/Dockerfile . completes successfully — verify with docker build command",
-        "Resulting image runs and prints Rocket startup log — verify with docker run"
+        "web/src/lib/tilt-colors.ts exports TILT_COLOR_MAP with hex, displayName, bgLight for all 8 colors \u2014 verify by reading file",
+        "ColorDot component renders a circle with correct color for each TiltColor \u2014 verify by viewing all 8 colors",
+        "ColorDot used in hydrometer cards, brew list, and dashboard \u2014 verify by searching source for ColorDot usage",
+        "npm run build succeeds with no type errors \u2014 verify by running command"
       ],
-      "passes": true
-    },
-    {
-      "group": "Infrastructure",
-      "feature": "Environment configuration and .env.example",
-      "description": "Create .env.example with all required environment variables documented with comments: DATABASE_URL (postgres connection string), ROCKET_SECRET_KEY (base64, with generation command), ROCKET_PORT (default 8000), RUST_LOG (default info), DB_PASSWORD (used by docker-compose). Ensure dotenvy loads .env in the server binary at startup.",
-      "acceptance_criteria": [
-        ".env.example contains DATABASE_URL, ROCKET_SECRET_KEY, ROCKET_PORT, RUST_LOG, DB_PASSWORD — verify by reading file",
-        "Each variable has a descriptive comment — verify by reading file",
-        "ROCKET_SECRET_KEY line includes generation hint — verify by reading file",
-        "Server binary loads .env via dotenvy at startup — verify by reading server/src/main.rs for dotenvy::dotenv() call"
-      ],
-      "passes": true
-    },
-    {
-      "group": "Infrastructure",
-      "feature": "Client systemd service unit file",
-      "description": "Create client/tilt-client.service systemd unit file for running the client binary on Raspberry Pi. Configure: After=network-online.target bluetooth.target, Wants=network-online.target, ExecStart pointing to /usr/local/bin/tilt-client with default args, Restart=always, RestartSec=10, Environment for RUST_LOG. Include install section for multi-user.target. Add comments with installation instructions.",
-      "acceptance_criteria": [
-        "client/tilt-client.service is a valid systemd unit file — verify by reading file for [Unit], [Service], [Install] sections",
-        "After= includes network-online.target and bluetooth.target — verify by reading file",
-        "Restart=always with RestartSec=10 — verify by reading file",
-        "ExecStart points to binary with --server-url placeholder — verify by reading file",
-        "Installation instructions are in comments at top of file — verify by reading file"
-      ],
-      "passes": true
-    },
-    {
-      "group": "Infrastructure",
-      "feature": "CI-ready test and build verification",
-      "description": "Ensure cargo test --workspace runs and exits 0 (even if only with placeholder tests). Ensure cargo clippy --workspace -- -D warnings passes. Ensure cargo fmt --all -- --check passes. Add a Makefile or justfile with targets: test, check, fmt, clippy, migrate, run-server, run-client for developer convenience.",
-      "acceptance_criteria": [
-        "cargo test --workspace exits 0 — verify by running command",
-        "cargo clippy --workspace -- -D warnings exits 0 — verify by running command",
-        "cargo fmt --all -- --check exits 0 — verify by running command",
-        "Makefile or justfile exists with test, check, fmt, clippy targets — verify by reading file",
-        "make test (or just test) runs cargo test --workspace — verify by reading file"
-      ],
-      "passes": true
+      "passes": false
     }
   ]
 }

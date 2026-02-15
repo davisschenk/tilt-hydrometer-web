@@ -292,3 +292,16 @@
 - Verify all 3 CI commands pass
 **Files:** Makefile, shared/src/lib.rs, server/src/services/hydrometer_service.rs, server/src/models/entities/prelude.rs, cargo fmt fixes
 **Result:** Success — ALL 30/30 TASKS COMPLETE! 🎉
+
+---
+# Web Frontend Development
+
+## Working on: Initialize Vite React TypeScript project
+**Plan:**
+- Create web/ via `npm create vite@latest web -- --template react-ts`
+- Enable strict mode in tsconfig.json
+- Install core deps: react-router-dom, @tanstack/react-query, recharts, date-fns, lucide-react
+- Create web/.env with VITE_API_URL default
+- Verify with `npm run dev`
+**Files:** web/ (new directory)
+**Result:** Success — upgraded Node.js to v22, Vite 8 beta, all deps installed, build passes
