@@ -131,3 +131,14 @@
 - Verify with `cargo check -p migration`
 **Files:** server/migration/src/m20260215_000003_create_readings.rs, server/migration/src/lib.rs
 **Result:** Success
+
+## Working on: Generate SeaORM entities from schema
+**Plan:**
+- Start Postgres via docker compose (create minimal docker-compose.yml for DB)
+- Run `sea-orm-cli migrate up` against live DB
+- Run `sea-orm-cli generate entity -o server/src/models/entities --with-serde both`
+- Wire up server/src/models/mod.rs to re-export entities
+- Verify with `cargo check -p server`
+**Files:** docker-compose.yml, server/src/models/entities/*.rs, server/src/models/mod.rs
+**Note:** Started Postgres via existing docker container, ran `sea-orm-cli migrate up`, then `sea-orm-cli generate entity --with-serde both`. Also added migration binary (main.rs + tokio + async-std deps).
+**Result:** Success — Database-Schema group complete!

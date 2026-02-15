@@ -127,7 +127,7 @@
         "server/src/models/entities/mod.rs re-exports all entity modules — verify by reading source",
         "cargo check -p server succeeds with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Server-API",
