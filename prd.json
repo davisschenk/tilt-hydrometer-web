@@ -284,7 +284,7 @@
         "Temperature Trend shows up/down/steady arrow \u2014 verify by checking with readings that have varying temperatures",
         "Time Since Last Reading shows human-readable duration (e.g., '5 minutes ago') \u2014 verify by viewing"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Readings-Visualization",

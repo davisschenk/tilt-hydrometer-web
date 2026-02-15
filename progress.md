@@ -501,3 +501,13 @@
 - Verify with `npm run build`
 **Files:** web/src/components/readings/readings-table.tsx, web/src/pages/brew-detail.tsx
 **Result:** Success — Table with 4 columns, DESC sort, 25/page pagination, empty state, build passes
+
+## Working on: Fermentation progress indicators
+**Plan:**
+- Create web/src/components/readings/fermentation-stats.tsx
+- Calculate: Current Gravity, Apparent Attenuation %, Estimated ABV, Temperature Trend (↑/↓/→), Time Since Last Reading
+- Accept brewId + og props, fetch readings via useReadings
+- Display as row of stat cards above the chart on brew detail
+- Verify with `npm run build`
+**Files:** web/src/components/readings/fermentation-stats.tsx, web/src/pages/brew-detail.tsx
+**Result:** Success — 5 stat cards (gravity, attenuation, ABV, temp trend, time since), build passes
