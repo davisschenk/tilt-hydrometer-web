@@ -476,3 +476,16 @@
 - Verify with `npm run build`
 **Files:** web/src/components/brew/delete-brew-dialog.tsx, web/src/pages/brew-detail.tsx
 **Result:** Success — AlertDialog with warning, DELETE on confirm, toast, redirect to /brews, build passes
+
+## Working on: Gravity and temperature line charts on brew detail
+**Plan:**
+- Create web/src/components/readings/readings-chart.tsx with dual-axis Recharts LineChart
+- Left Y-axis: gravity (blue), Right Y-axis: temperature °F (orange)
+- X-axis: time formatted with date-fns
+- Time range buttons: 24h, 7d, 30d, All
+- Tooltips with exact values
+- Accept brewId prop, fetch via useReadings
+- Replace readings placeholder in brew-detail.tsx
+- Verify with `npm run build`
+**Files:** web/src/components/readings/readings-chart.tsx, web/src/pages/brew-detail.tsx
+**Result:** Success — dual-axis LineChart, time range buttons, tooltips, responsive, build passes

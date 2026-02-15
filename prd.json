@@ -257,7 +257,7 @@
         "Time range selector buttons (24h, 7d, 30d, All) filter the displayed data \u2014 verify by clicking each and watching chart update",
         "Chart is responsive and fills container width \u2014 verify by resizing browser"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Readings-Visualization",
