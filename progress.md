@@ -615,3 +615,12 @@ Appended 4 new tasks to prd.json under group "Client-Simulate":
 - Verify with `cargo build -p client`
 **Files:** client/src/main.rs
 **Result:** Success — main.rs branches on --simulate, parses sim-colors, constructs TiltSimulator, uses generate_readings() in loop, clean build with 0 warnings
+
+## Working on: Unit tests for simulator module
+**Plan:**
+- Add #[cfg(test)] mod tests to client/src/simulator.rs
+- Tests: (1) new constructs without panic, (2) single-color output count, (3) multi-color output count, (4) gravity within OG..target_fg, (5) temperature within base±1.0, (6) RSSI in -80..=-60, (7) gravity near target_fg after simulated long elapsed time
+- For time-dependent tests, construct TiltSimulator with a helper that allows setting a custom start Instant offset
+- Verify with `cargo test -p client` and `cargo test --workspace`
+**Files:** client/src/simulator.rs
+**Result:** Success — 7 new tests (construct, single/multi color, gravity bounds, temp jitter, RSSI range, decay over time, near target at 14d), all 31 workspace tests pass
