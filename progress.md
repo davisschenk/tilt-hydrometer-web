@@ -659,3 +659,17 @@ Appended 3 new tasks to prd.json under group "Justfile":
 - Verify with `just --list` and `just build`
 **Files:** justfile
 **Result:** Success — server, client-sim, web, dev, build, clean recipes added, `just --list` and `just build` work
+
+## Working on: Add test and code quality recipes to justfile
+**Plan:**
+- Add `test-rust` recipe: cargo test --workspace
+- Add `test-web` recipe: cd web && npm run build
+- Add `test` recipe: test-rust + test-web
+- Add `fmt` recipe: cargo fmt --all
+- Add `fmt-check` recipe: cargo fmt --all -- --check
+- Add `lint` recipe: cargo clippy --workspace -- -D warnings
+- Add `check` recipe: cargo check --workspace
+- Add `ci` recipe: fmt-check + lint + test
+- Verify with `just test`, `just fmt`, `just lint`, `just ci`
+**Files:** justfile
+**Result:** Success — test-rust, test-web, test, fmt, fmt-check, lint, check, ci recipes added, all pass including `just ci` full pipeline

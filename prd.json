@@ -449,7 +449,7 @@
         "`just ci` runs the full quality pipeline — verify by running command",
         "`just --list` shows all test/quality recipes — verify by running command"
       ],
-      "passes": false
+      "passes": true
     }
   ]
 }
