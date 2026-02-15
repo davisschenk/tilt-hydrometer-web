@@ -603,3 +603,15 @@ Appended 4 new tasks to prd.json under group "Client-Simulate":
 - Verify with `cargo build -p client`
 **Files:** client/src/simulator.rs, client/src/main.rs, client/Cargo.toml
 **Result:** Success — TiltSimulator with exponential decay gravity curve, temp jitter, RSSI simulation, build passes (unused warnings expected until wiring)
+
+## Working on: Wire simulator into main loop as alternative to BLE scanner
+**Plan:**
+- Refactor main.rs to branch on args.simulate
+- When simulate: parse --sim-colors via TiltColor::parse(), construct TiltSimulator, use generate_readings() in loop
+- When BLE: keep existing TiltScanner flow unchanged
+- Both paths share the same upload/buffer/backoff logic
+- Log each simulated reading at debug level
+- Error on invalid --sim-colors value with clear message
+- Verify with `cargo build -p client`
+**Files:** client/src/main.rs
+**Result:** Success — main.rs branches on --simulate, parses sim-colors, constructs TiltSimulator, uses generate_readings() in loop, clean build with 0 warnings

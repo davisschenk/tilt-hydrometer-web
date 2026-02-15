@@ -399,7 +399,7 @@
         "Running without --simulate still uses BLE scanner — verify by running without flag on a machine with BLE",
         "Invalid --sim-colors value produces a clear error message — verify by passing an invalid color name"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Client-Simulate",
