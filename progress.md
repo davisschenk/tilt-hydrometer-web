@@ -29,3 +29,12 @@
 - Verify with `cargo check -p server`
 **Files:** server/Cargo.toml, server/src/main.rs
 **Result:** Success
+
+## Working on: Client crate dependencies
+**Plan:**
+- `cargo add` btleplug, reqwest (json+rustls-tls), tokio (full), clap (derive), tracing, tracing-subscriber, serde (derive), serde_json, chrono to client crate
+- `cargo add --path ../shared` to client crate
+- Verify with `cargo check -p client`
+**Files:** client/Cargo.toml
+**Note:** Required `sudo apt-get install libdbus-1-dev` for btleplug's dbus dependency on Linux.
+**Result:** Success
