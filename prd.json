@@ -263,7 +263,7 @@
         "All types serialize/deserialize correctly — verify with serde_json unit test",
         "cargo test -p shared passes with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "BLE-Client",

@@ -83,3 +83,12 @@
 - Verify with `cargo test -p shared`
 **Files:** shared/src/lib.rs
 **Result:** Success — 26 tests pass
+
+## Working on: ReadingResponse and query parameter types
+**Plan:**
+- Add ReadingResponse DTO (id, brew_id?, hydrometer_id, color, temperature_f, gravity, rssi?, recorded_at, created_at)
+- Add ReadingsQuery struct with filter fields (brew_id, hydrometer_id, since, until, limit) all Option with default limit 1000
+- Add unit tests: ReadingResponse round-trip, ReadingsQuery all-optional, default limit handling
+- Verify with `cargo test -p shared`
+**Files:** shared/src/lib.rs
+**Result:** Success — 31 tests pass. Shared-Types group complete!
