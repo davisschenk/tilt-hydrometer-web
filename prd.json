@@ -244,7 +244,7 @@
         "Cancel closes dialog without API call \u2014 verify by clicking Cancel",
         "Brew list refreshes (query invalidated) after deletion \u2014 verify by checking brew is gone from list"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Readings-Visualization",

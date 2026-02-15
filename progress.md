@@ -465,3 +465,14 @@
 - Verify with `npm run build`
 **Files:** web/src/components/brew/edit-brew-dialog.tsx, web/src/pages/brew-detail.tsx
 **Result:** Success — Dialog with 8 pre-filled fields, PUT on submit, toast, query invalidation, build passes
+
+## Working on: Delete brew with confirmation
+**Plan:**
+- Install shadcn alert-dialog component
+- Create web/src/components/brew/delete-brew-dialog.tsx as AlertDialog
+- Show brew name, warning, confirm sends DELETE /brews/:id
+- On success: toast + navigate to /brews, invalidate queries
+- Wire Delete button in brew-detail.tsx to open dialog
+- Verify with `npm run build`
+**Files:** web/src/components/brew/delete-brew-dialog.tsx, web/src/pages/brew-detail.tsx
+**Result:** Success — AlertDialog with warning, DELETE on confirm, toast, redirect to /brews, build passes
