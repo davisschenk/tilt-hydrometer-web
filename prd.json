@@ -202,7 +202,7 @@
         "Success toast shown on creation \u2014 verify by observing toast after submit",
         "Error toast shown on API failure \u2014 verify by testing with server down"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Brew-Management",

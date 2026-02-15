@@ -434,3 +434,13 @@
 - Verify with `npm run build`
 **Files:** web/src/pages/brew-list.tsx
 **Result:** Success — Table with 8 columns, Tabs status filter, Badge color-coding, empty state, build passes
+
+## Working on: Create brew form page
+**Plan:**
+- Install shadcn select and textarea components
+- Rewrite web/src/pages/brew-new.tsx with form: Name (required), Style, Hydrometer (select from API), OG, Target FG, Notes
+- POST to /brews on submit, redirect to /brews/:id on success
+- Toast on success/error, inline validation
+- Verify with `npm run build`
+**Files:** web/src/pages/brew-new.tsx
+**Result:** Success — form with 6 fields, Select/Textarea, validation, toast, redirect, build passes
