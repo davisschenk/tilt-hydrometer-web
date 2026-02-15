@@ -201,3 +201,13 @@
 - All already in place from earlier cycles
 **Files:** .env.example, server/src/main.rs
 **Result:** Success — all criteria already met from cycles 5 and 16
+
+## Working on: Hydrometers CRUD routes
+**Plan:**
+- Create server/src/routes/hydrometers.rs with GET (list), POST (create), GET/<id>, PUT/<id>, DELETE/<id>
+- Routes use hydrometer_service functions, take &State<DatabaseConnection>
+- Return proper status codes (200, 201, 204, 404, 422)
+- Register routes in main.rs
+- Verify with `cargo check -p server`
+**Files:** server/src/routes/hydrometers.rs, server/src/routes/mod.rs, server/src/main.rs
+**Result:** Success

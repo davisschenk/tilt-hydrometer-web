@@ -154,7 +154,7 @@
         "PUT /hydrometers/<id> updates fields and returns 200 — verify with integration test",
         "DELETE /hydrometers/<id> removes record and returns 204 — verify with integration test"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Server-API",
