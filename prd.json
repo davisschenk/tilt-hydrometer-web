@@ -412,6 +412,44 @@
         "No existing tests broken — verify by running cargo test --workspace"
       ],
       "passes": true
+    },
+    {
+      "group": "Justfile",
+      "feature": "Create justfile with database and Docker infrastructure recipes",
+      "description": "Create a justfile at the project root with recipes for database and Docker infrastructure management. Recipes: `db-up` (docker compose up -d db, wait for healthy), `db-down` (docker compose down), `db-reset` (down + up + migrate), `db-migrate` (sea-orm-cli migrate up with DATABASE_URL from .env), `db-entities` (sea-orm-cli generate entity with correct output path and --with-serde both). Use dotenv-load to auto-load .env. Add a default recipe that lists all available recipes. Verify with `just --list`.",
+      "acceptance_criteria": [
+        "justfile exists at project root — verify by reading file",
+        "`just --list` displays all recipes without error — verify by running command",
+        "`just db-up` starts the Postgres container — verify by running command",
+        "`just db-down` stops containers — verify by running command",
+        "Recipes use dotenv-load for DATABASE_URL — verify by reading justfile"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Justfile",
+      "feature": "Add dev workflow recipes to justfile",
+      "description": "Add development workflow recipes to the justfile: `server` (cargo run -p server), `client-sim` (cargo run -p client -- --simulate with sensible defaults for server-url, scan-interval, sim-colors), `web` (npm run dev in web/), `dev` (run db-up then server, client-sim, and web concurrently — or document that user should run in separate terminals). Add `build` recipe that builds all Rust crates and the web frontend. Add `clean` recipe (cargo clean + rm -rf web/dist).",
+      "acceptance_criteria": [
+        "`just --list` shows server, client-sim, web, dev, build, clean recipes — verify by running command",
+        "`just build` compiles Rust workspace and web frontend without error — verify by running command",
+        "`just client-sim` starts client in simulate mode — verify by running and checking log output",
+        "`just clean` removes build artifacts — verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Justfile",
+      "feature": "Add test and code quality recipes to justfile",
+      "description": "Add test and code quality recipes to the justfile: `test` (cargo test --workspace + npm run build in web/), `test-rust` (cargo test --workspace), `test-web` (npm run build in web/), `fmt` (cargo fmt --all), `fmt-check` (cargo fmt --all -- --check), `lint` (cargo clippy --workspace -- -D warnings), `check` (cargo check --workspace). Add a `ci` recipe that runs fmt-check, lint, test (the full pipeline). Verify all recipes work.",
+      "acceptance_criteria": [
+        "`just test` runs all Rust tests and web build — verify by running command",
+        "`just fmt` formats code without error — verify by running command",
+        "`just lint` runs clippy without error (or shows real warnings) — verify by running command",
+        "`just ci` runs the full quality pipeline — verify by running command",
+        "`just --list` shows all test/quality recipes — verify by running command"
+      ],
+      "passes": false
     }
   ]
 }

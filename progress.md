@@ -624,3 +624,12 @@ Appended 4 new tasks to prd.json under group "Client-Simulate":
 - Verify with `cargo test -p client` and `cargo test --workspace`
 **Files:** client/src/simulator.rs
 **Result:** Success — 7 new tests (construct, single/multi color, gravity bounds, temp jitter, RSSI range, decay over time, near target at 14d), all 31 workspace tests pass
+
+---
+
+# Phase: Justfile
+
+Appended 3 new tasks to prd.json under group "Justfile":
+1. Create justfile with database and Docker infrastructure recipes
+2. Add dev workflow recipes to justfile
+3. Add test and code quality recipes to justfile
