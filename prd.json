@@ -88,7 +88,7 @@
         "Unique constraint exists on color column — verify by attempting duplicate insert",
         "sea-orm-cli migrate up succeeds with exit code 0 against a running Postgres"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database-Schema",

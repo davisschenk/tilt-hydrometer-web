@@ -102,3 +102,12 @@
 - Verify with `cargo check -p migration`
 **Files:** server/migration/Cargo.toml, server/migration/src/lib.rs, Cargo.toml
 **Result:** Success
+
+## Working on: Create hydrometers table migration
+**Plan:**
+- Create migration file m20260215_000001_create_hydrometers.rs in server/migration/src/
+- Table: hydrometers with id (UUID PK default gen_random_uuid()), color (VARCHAR NOT NULL UNIQUE), name (VARCHAR nullable), temp_offset_f (DOUBLE NOT NULL DEFAULT 0), gravity_offset (DOUBLE NOT NULL DEFAULT 0), created_at (TIMESTAMPTZ NOT NULL DEFAULT now())
+- Register in Migrator's migrations() vec
+- Verify with `cargo check -p migration` (can't run migrate up without a live DB)
+**Files:** server/migration/src/m20260215_000001_create_hydrometers.rs, server/migration/src/lib.rs
+**Result:** Success
