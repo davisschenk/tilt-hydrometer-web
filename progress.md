@@ -561,3 +561,13 @@
 - Verify with `npm run build`
 **Files:** web/src/components/hydrometer/edit-hydrometer-dialog.tsx, web/src/pages/hydrometer-list.tsx
 **Result:** Success — Dialog with name, temp offset, gravity offset, help text, Edit button on cards, build passes
+
+## Working on: Delete hydrometer with safety check
+**Plan:**
+- Create web/src/components/hydrometer/delete-hydrometer-dialog.tsx as AlertDialog
+- Show hydrometer color and name, warning if assigned to active brew
+- DELETE /hydrometers/:id on confirm, toast, invalidate queries
+- Add Delete button to hydrometer cards next to Edit
+- Verify with `npm run build`
+**Files:** web/src/components/hydrometer/delete-hydrometer-dialog.tsx, web/src/pages/hydrometer-list.tsx
+**Result:** Success — AlertDialog with active brew warning, Delete button on cards, toast, query invalidation, build passes
