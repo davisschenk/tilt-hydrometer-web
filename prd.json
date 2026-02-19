@@ -622,7 +622,7 @@
         "Raw API keys and session tokens do NOT appear in logs \u2014 verify by reading fairing source",
         "cargo test -p server passes \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database-Auth",
@@ -745,7 +745,7 @@
         "Test for 200 on protected route with mock session passes \u2014 verify by running specific test",
         "Test helper for injecting mock session cookie documented \u2014 verify by reading test helper source"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Testing-Security",
@@ -759,7 +759,7 @@
         "Test verifying expired key returns 401 with correct message passes \u2014 verify by running specific test",
         "cargo test --workspace passes \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Testing-Security",
@@ -772,7 +772,7 @@
         "Rate limit 429 test passes \u2014 verify by running test",
         "cargo test -p server security_tests passes \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Testing-Security",
@@ -785,7 +785,7 @@
         "API key rotation procedure documented \u2014 verify by reading docs",
         "just test-client-auth runs without error against a local server \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     }
   ]
 }
