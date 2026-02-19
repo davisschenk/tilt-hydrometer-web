@@ -596,7 +596,7 @@
         "Content-Security-Policy header present and includes 'self' \u2014 verify by running command",
         "cargo test -p server passes \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Server-Security",
@@ -609,7 +609,7 @@
         "X-API-Key listed in Access-Control-Allow-Headers \u2014 verify with curl OPTIONS request",
         "FRONTEND_URL in .env.example \u2014 verify by reading file"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Server-Security",
