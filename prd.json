@@ -582,7 +582,7 @@
         "Rate limit state resets after the window expires \u2014 verify by waiting and retrying",
         "cargo test -p server passes \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Server-Security",
