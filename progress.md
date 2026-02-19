@@ -673,3 +673,20 @@ Appended 3 new tasks to prd.json under group "Justfile":
 - Verify with `just test`, `just fmt`, `just lint`, `just ci`
 **Files:** justfile
 **Result:** Success — test-rust, test-web, test, fmt, fmt-check, lint, check, ci recipes added, all pass including `just ci` full pipeline
+
+---
+
+# Phase: Auth & Security
+
+## Working on: User sessions table and session management service
+**Plan:**
+- Run `sea-orm-cli migrate generate create_user_sessions` to create timestamped migration file
+- Implement Up: create user_sessions table (id UUID PK, user_sub VARCHAR, email VARCHAR, name VARCHAR, id_token_hash VARCHAR, created_at TIMESTAMPTZ, expires_at TIMESTAMPTZ, last_seen_at TIMESTAMPTZ)
+- Implement Down: drop user_sessions table
+- Register migration in server/migration/src/lib.rs Migrator
+- Start DB, run `sea-orm-cli migrate up`, regenerate entities with `sea-orm-cli generate entity --with-serde both`
+- Create server/src/services/sessions.rs with: create_session(), get_session_by_id(), touch_session(), delete_session(), delete_expired_sessions()
+- Wire sessions module into server/src/services/mod.rs
+- Verify with `cargo check -p server`
+**Files:** server/migration/src/m20260219_012142_create_user_sessions.rs, server/migration/src/lib.rs, server/src/models/entities/user_sessions.rs, server/src/services/sessions.rs, server/src/services/mod.rs
+**Result:** Success — migration applied, user_sessions entity generated, sessions service with create/get/touch/delete/delete_expired functions, cargo check -p server passes

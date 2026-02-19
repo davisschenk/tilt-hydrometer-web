@@ -636,7 +636,7 @@
         "delete_expired_sessions() removes sessions past expires_at \u2014 verify with unit test using past timestamp",
         "cargo test -p server passes \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database-Auth",
