@@ -366,26 +366,26 @@
     {
       "group": "Client-Simulate",
       "feature": "Add --simulate CLI flag and simulator configuration args",
-      "description": "Add a `--simulate` boolean flag to the clap Args struct in client/src/main.rs. When set, the client skips BLE scanner initialization and uses a simulator instead. Add supporting args: `--sim-colors` (comma-separated list of TiltColor names to simulate, default 'Red'), `--sim-og` (starting OG, default 1.055), `--sim-target-fg` (target FG, default 1.012), `--sim-temp` (base temperature °F, default 68.0). These args are only used when --simulate is set. Log a clear info message when starting in simulate mode vs BLE mode.",
+      "description": "Add a `--simulate` boolean flag to the clap Args struct in client/src/main.rs. When set, the client skips BLE scanner initialization and uses a simulator instead. Add supporting args: `--sim-colors` (comma-separated list of TiltColor names to simulate, default 'Red'), `--sim-og` (starting OG, default 1.055), `--sim-target-fg` (target FG, default 1.012), `--sim-temp` (base temperature \u00b0F, default 68.0). These args are only used when --simulate is set. Log a clear info message when starting in simulate mode vs BLE mode.",
       "acceptance_criteria": [
-        "cargo build -p client succeeds with new CLI args — verify by running command",
-        "--simulate flag accepted without error — verify with cargo run -p client -- --simulate --server-url http://localhost:8000",
-        "--sim-colors, --sim-og, --sim-target-fg, --sim-temp args parsed correctly — verify by adding trace log and checking output",
-        "Without --simulate, client still attempts BLE scanner initialization — verify by running without flag"
+        "cargo build -p client succeeds with new CLI args \u2014 verify by running command",
+        "--simulate flag accepted without error \u2014 verify with cargo run -p client -- --simulate --server-url http://localhost:8000",
+        "--sim-colors, --sim-og, --sim-target-fg, --sim-temp args parsed correctly \u2014 verify by adding trace log and checking output",
+        "Without --simulate, client still attempts BLE scanner initialization \u2014 verify by running without flag"
       ],
       "passes": true
     },
     {
       "group": "Client-Simulate",
       "feature": "Create simulator module with fermentation curve generation",
-      "description": "Create client/src/simulator.rs with a TiltSimulator struct. It accepts: colors (Vec<TiltColor>), starting OG, target FG, base temperature, and scan interval. On each call to generate_readings(), it produces one TiltReading per configured color. Gravity follows an exponential decay curve from OG toward target FG over ~14 days (configurable). Temperature has small random jitter (±0.5°F). Gravity has tiny noise (±0.001). The simulator tracks elapsed time from first call to compute position on the fermentation curve. RSSI is simulated as a random value between -60 and -80.",
+      "description": "Create client/src/simulator.rs with a TiltSimulator struct. It accepts: colors (Vec<TiltColor>), starting OG, target FG, base temperature, and scan interval. On each call to generate_readings(), it produces one TiltReading per configured color. Gravity follows an exponential decay curve from OG toward target FG over ~14 days (configurable). Temperature has small random jitter (\u00b10.5\u00b0F). Gravity has tiny noise (\u00b10.001). The simulator tracks elapsed time from first call to compute position on the fermentation curve. RSSI is simulated as a random value between -60 and -80.",
       "acceptance_criteria": [
-        "cargo build -p client succeeds — verify by running command",
-        "TiltSimulator::new() constructs without panic — verify via unit test",
-        "generate_readings() returns one reading per configured color — verify via unit test",
-        "Gravity decreases over successive calls following exponential decay — verify via unit test calling generate_readings() multiple times",
-        "Temperature values stay within base_temp ± 1.0°F — verify via unit test",
-        "RSSI values are in range -80..=-60 — verify via unit test"
+        "cargo build -p client succeeds \u2014 verify by running command",
+        "TiltSimulator::new() constructs without panic \u2014 verify via unit test",
+        "generate_readings() returns one reading per configured color \u2014 verify via unit test",
+        "Gravity decreases over successive calls following exponential decay \u2014 verify via unit test calling generate_readings() multiple times",
+        "Temperature values stay within base_temp \u00b1 1.0\u00b0F \u2014 verify via unit test",
+        "RSSI values are in range -80..=-60 \u2014 verify via unit test"
       ],
       "passes": true
     },
@@ -394,10 +394,10 @@
       "feature": "Wire simulator into main loop as alternative to BLE scanner",
       "description": "Refactor client/src/main.rs to branch on the --simulate flag. When --simulate is set: skip TiltScanner::new(), construct a TiltSimulator from the CLI args, and in the main loop call simulator.generate_readings() instead of scanner.scan_once(). The rest of the loop (buffering, uploading, backoff) remains identical. Parse --sim-colors by splitting on comma and mapping each to TiltColor::parse(). Log each simulated reading at debug level.",
       "acceptance_criteria": [
-        "cargo build -p client succeeds — verify by running command",
-        "Running with --simulate generates readings and uploads them to the server — verify by running with a live server and checking readings appear",
-        "Running without --simulate still uses BLE scanner — verify by running without flag on a machine with BLE",
-        "Invalid --sim-colors value produces a clear error message — verify by passing an invalid color name"
+        "cargo build -p client succeeds \u2014 verify by running command",
+        "Running with --simulate generates readings and uploads them to the server \u2014 verify by running with a live server and checking readings appear",
+        "Running without --simulate still uses BLE scanner \u2014 verify by running without flag on a machine with BLE",
+        "Invalid --sim-colors value produces a clear error message \u2014 verify by passing an invalid color name"
       ],
       "passes": true
     },
@@ -406,10 +406,10 @@
       "feature": "Unit tests for simulator module",
       "description": "Add comprehensive #[cfg(test)] tests in client/src/simulator.rs. Tests: (1) default config produces readings, (2) multi-color simulation produces correct number of readings, (3) gravity stays within OG..target_fg bounds, (4) gravity decreases monotonically when noise is removed (or on average over many samples), (5) temperature jitter stays within bounds, (6) RSSI is always in valid range, (7) fermentation curve reaches near target_fg after simulated 14 days. Use deterministic time advancement where possible.",
       "acceptance_criteria": [
-        "cargo test -p client passes all new tests — verify by running command",
-        "At least 5 test functions exist in simulator module — verify by counting #[test] annotations",
-        "Tests cover gravity bounds, temperature jitter, RSSI range, and multi-color output — verify by reading test names",
-        "No existing tests broken — verify by running cargo test --workspace"
+        "cargo test -p client passes all new tests \u2014 verify by running command",
+        "At least 5 test functions exist in simulator module \u2014 verify by counting #[test] annotations",
+        "Tests cover gravity bounds, temperature jitter, RSSI range, and multi-color output \u2014 verify by reading test names",
+        "No existing tests broken \u2014 verify by running cargo test --workspace"
       ],
       "passes": true
     },
@@ -418,23 +418,23 @@
       "feature": "Create justfile with database and Docker infrastructure recipes",
       "description": "Create a justfile at the project root with recipes for database and Docker infrastructure management. Recipes: `db-up` (docker compose up -d db, wait for healthy), `db-down` (docker compose down), `db-reset` (down + up + migrate), `db-migrate` (sea-orm-cli migrate up with DATABASE_URL from .env), `db-entities` (sea-orm-cli generate entity with correct output path and --with-serde both). Use dotenv-load to auto-load .env. Add a default recipe that lists all available recipes. Verify with `just --list`.",
       "acceptance_criteria": [
-        "justfile exists at project root — verify by reading file",
-        "`just --list` displays all recipes without error — verify by running command",
-        "`just db-up` starts the Postgres container — verify by running command",
-        "`just db-down` stops containers — verify by running command",
-        "Recipes use dotenv-load for DATABASE_URL — verify by reading justfile"
+        "justfile exists at project root \u2014 verify by reading file",
+        "`just --list` displays all recipes without error \u2014 verify by running command",
+        "`just db-up` starts the Postgres container \u2014 verify by running command",
+        "`just db-down` stops containers \u2014 verify by running command",
+        "Recipes use dotenv-load for DATABASE_URL \u2014 verify by reading justfile"
       ],
       "passes": true
     },
     {
       "group": "Justfile",
       "feature": "Add dev workflow recipes to justfile",
-      "description": "Add development workflow recipes to the justfile: `server` (cargo run -p server), `client-sim` (cargo run -p client -- --simulate with sensible defaults for server-url, scan-interval, sim-colors), `web` (npm run dev in web/), `dev` (run db-up then server, client-sim, and web concurrently — or document that user should run in separate terminals). Add `build` recipe that builds all Rust crates and the web frontend. Add `clean` recipe (cargo clean + rm -rf web/dist).",
+      "description": "Add development workflow recipes to the justfile: `server` (cargo run -p server), `client-sim` (cargo run -p client -- --simulate with sensible defaults for server-url, scan-interval, sim-colors), `web` (npm run dev in web/), `dev` (run db-up then server, client-sim, and web concurrently \u2014 or document that user should run in separate terminals). Add `build` recipe that builds all Rust crates and the web frontend. Add `clean` recipe (cargo clean + rm -rf web/dist).",
       "acceptance_criteria": [
-        "`just --list` shows server, client-sim, web, dev, build, clean recipes — verify by running command",
-        "`just build` compiles Rust workspace and web frontend without error — verify by running command",
-        "`just client-sim` starts client in simulate mode — verify by running and checking log output",
-        "`just clean` removes build artifacts — verify by running command"
+        "`just --list` shows server, client-sim, web, dev, build, clean recipes \u2014 verify by running command",
+        "`just build` compiles Rust workspace and web frontend without error \u2014 verify by running command",
+        "`just client-sim` starts client in simulate mode \u2014 verify by running and checking log output",
+        "`just clean` removes build artifacts \u2014 verify by running command"
       ],
       "passes": true
     },
@@ -443,13 +443,349 @@
       "feature": "Add test and code quality recipes to justfile",
       "description": "Add test and code quality recipes to the justfile: `test` (cargo test --workspace + npm run build in web/), `test-rust` (cargo test --workspace), `test-web` (npm run build in web/), `fmt` (cargo fmt --all), `fmt-check` (cargo fmt --all -- --check), `lint` (cargo clippy --workspace -- -D warnings), `check` (cargo check --workspace). Add a `ci` recipe that runs fmt-check, lint, test (the full pipeline). Verify all recipes work.",
       "acceptance_criteria": [
-        "`just test` runs all Rust tests and web build — verify by running command",
-        "`just fmt` formats code without error — verify by running command",
-        "`just lint` runs clippy without error (or shows real warnings) — verify by running command",
-        "`just ci` runs the full quality pipeline — verify by running command",
-        "`just --list` shows all test/quality recipes — verify by running command"
+        "`just test` runs all Rust tests and web build \u2014 verify by running command",
+        "`just fmt` formats code without error \u2014 verify by running command",
+        "`just lint` runs clippy without error (or shows real warnings) \u2014 verify by running command",
+        "`just ci` runs the full quality pipeline \u2014 verify by running command",
+        "`just --list` shows all test/quality recipes \u2014 verify by running command"
       ],
       "passes": true
+    },
+    {
+      "group": "OAuth2-Auth",
+      "feature": "Add Authentik OAuth2 OIDC Rocket fairing and session management",
+      "description": "Integrate OAuth2/OIDC authentication into the Rocket server using the `openidconnect` crate. Add a fairing that discovers the Authentik OIDC provider metadata from AUTHENTIK_ISSUER_URL env var. Store AUTHENTIK_CLIENT_ID, AUTHENTIK_CLIENT_SECRET, AUTHENTIK_ISSUER_URL, and SESSION_SECRET in .env. Use Rocket's private cookies (encrypted with ROCKET_SECRET_KEY) to store the session token after successful login. Create a `CurrentUser` request guard that reads the session cookie, validates the OIDC ID token, and extracts user claims (sub, email, name, groups). Return 401 JSON if the guard fails on API routes.",
+      "acceptance_criteria": [
+        "cargo add openidconnect --features reqwest,ring to server crate \u2014 verify with cargo check -p server",
+        "AUTHENTIK_ISSUER_URL, AUTHENTIK_CLIENT_ID, AUTHENTIK_CLIENT_SECRET env vars documented in .env.example \u2014 verify by reading file",
+        "CurrentUser request guard compiles and extracts sub/email from valid session cookie \u2014 verify with unit test using mock claims",
+        "API routes protected by CurrentUser return 401 JSON {\"error\":\"Unauthorized\"} when no session \u2014 verify with curl against running server",
+        "OIDC provider metadata fetched at startup from Authentik discovery endpoint \u2014 verify by checking server startup logs"
+      ],
+      "passes": false
+    },
+    {
+      "group": "OAuth2-Auth",
+      "feature": "Implement OAuth2 login and callback routes",
+      "description": "Create GET /api/v1/auth/login route that generates an OAuth2 authorization URL (with PKCE code_challenge, state, nonce) and redirects the browser to Authentik. Create GET /api/v1/auth/callback route that receives the authorization code, exchanges it for tokens via Authentik's token endpoint, validates the ID token (signature, nonce, expiry), extracts user claims, and sets an encrypted session cookie. On success redirect to the frontend SPA root (/). On failure return a redirect to /?error=auth_failed. Store PKCE verifier and state in a short-lived cookie during the flow.",
+      "acceptance_criteria": [
+        "GET /api/v1/auth/login redirects to Authentik authorization URL with correct client_id, redirect_uri, scope=openid+email+profile, PKCE params \u2014 verify by visiting URL in browser",
+        "GET /api/v1/auth/callback exchanges code for tokens and sets encrypted session cookie \u2014 verify by completing OAuth2 flow in browser",
+        "Invalid state or nonce in callback returns redirect to /?error=auth_failed \u2014 verify by tampering with state param",
+        "Successful login redirects to / and subsequent API requests include valid session \u2014 verify by completing login flow end-to-end",
+        "PKCE code_verifier stored in short-lived cookie and validated in callback \u2014 verify by reading route source"
+      ],
+      "passes": false
+    },
+    {
+      "group": "OAuth2-Auth",
+      "feature": "Implement logout route and session invalidation",
+      "description": "Create POST /api/v1/auth/logout route (protected by CurrentUser guard) that clears the session cookie and redirects to Authentik's end_session_endpoint to perform RP-initiated logout. Create GET /api/v1/auth/me route that returns the current user's claims (sub, email, name) as JSON for the frontend to use. Add the logout URL to the OIDC discovery document or hardcode from AUTHENTIK_ISSUER_URL.",
+      "acceptance_criteria": [
+        "POST /api/v1/auth/logout clears session cookie \u2014 verify by checking Set-Cookie header with Max-Age=0",
+        "POST /api/v1/auth/logout redirects to Authentik end_session_endpoint \u2014 verify by following redirect in browser",
+        "GET /api/v1/auth/me returns {sub, email, name} JSON for authenticated user \u2014 verify with curl using valid session",
+        "GET /api/v1/auth/me returns 401 for unauthenticated requests \u2014 verify with curl without session cookie",
+        "cargo test -p server passes all auth route tests \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "OAuth2-Auth",
+      "feature": "Protect all existing API routes with CurrentUser guard",
+      "description": "Apply the CurrentUser request guard to all existing route handlers in server/src/routes/ (brews.rs, hydrometers.rs, readings.rs). The readings POST endpoint is an exception \u2014 it accepts either a valid session OR a valid API key (handled in the API-Keys group). Update Rocket catchers to return consistent JSON error shapes for 401 and 403. Update the CORS fairing to allow credentials (allow_credentials: true) and restrict allowed origins to the configured FRONTEND_URL env var instead of wildcard.",
+      "acceptance_criteria": [
+        "GET /api/v1/brews returns 401 without session cookie \u2014 verify with curl",
+        "GET /api/v1/hydrometers returns 401 without session cookie \u2014 verify with curl",
+        "CORS fairing allows credentials and restricts origin to FRONTEND_URL \u2014 verify by reading fairing config and checking CORS headers",
+        "cargo test -p server passes \u2014 verify by running command",
+        "Existing integration tests updated to include mock CurrentUser guard \u2014 verify by reading test files"
+      ],
+      "passes": false
+    },
+    {
+      "group": "API-Keys",
+      "feature": "API key database schema and migration",
+      "description": "Generate a new SeaORM migration for the api_keys table: id (UUID PK), name (VARCHAR, user-provided label), key_hash (VARCHAR, bcrypt/SHA-256 hash of the raw key), prefix (VARCHAR 8 chars, first 8 chars of raw key for display), created_by (VARCHAR, user sub from OIDC), last_used_at (TIMESTAMPTZ nullable), expires_at (TIMESTAMPTZ nullable), created_at (TIMESTAMPTZ). Run `sea-orm-cli migrate generate create_api_keys` and implement the Up/Down. Then regenerate entities with `sea-orm-cli generate entity`. Add a unique index on key_hash.",
+      "acceptance_criteria": [
+        "sea-orm-cli migrate up applies the api_keys migration without error \u2014 verify by running command against dev DB",
+        "api_keys table has all specified columns \u2014 verify with \\d api_keys in psql",
+        "Unique index on key_hash exists \u2014 verify with \\di in psql",
+        "SeaORM entity file server/src/models/entities/api_keys.rs generated \u2014 verify with ls",
+        "sea-orm-cli migrate down rolls back cleanly \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "API-Keys",
+      "feature": "API key generation and management service",
+      "description": "Create server/src/services/api_keys.rs with functions: generate_api_key() -> (raw: String, hash: String, prefix: String) that generates a cryptographically random 32-byte key encoded as hex (64 chars), computes SHA-256 hash for storage, and extracts the first 8 chars as prefix. create_api_key(db, name, created_by, expires_at) -> ApiKeyResponse that inserts into DB and returns the raw key ONCE (never stored). list_api_keys(db, user_sub) -> Vec<ApiKeySummary> returning id, name, prefix, last_used_at, expires_at, created_at (never the hash). delete_api_key(db, id, user_sub) -> Result that verifies ownership before deletion. validate_api_key(db, raw_key) -> Option<ApiKeyRecord> that hashes the input and looks up by hash, updating last_used_at.",
+      "acceptance_criteria": [
+        "generate_api_key() returns a 64-char hex string, its SHA-256 hash, and 8-char prefix \u2014 verify with unit test",
+        "create_api_key() inserts record and returns raw key \u2014 verify with SeaORM mock test",
+        "list_api_keys() never returns key_hash field \u2014 verify by reading ApiKeySummary struct definition",
+        "validate_api_key() updates last_used_at on successful validation \u2014 verify with integration test",
+        "delete_api_key() returns error if user_sub doesn't match created_by \u2014 verify with unit test",
+        "cargo test -p server passes \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "API-Keys",
+      "feature": "API key CRUD routes",
+      "description": "Create server/src/routes/api_keys.rs with routes mounted at /api/v1/api-keys: GET / (list user's keys, requires CurrentUser), POST / (create key, requires CurrentUser, body: {name, expires_at?}, returns {id, name, prefix, key, created_at} \u2014 key shown only once), DELETE /<id> (delete key, requires CurrentUser, verifies ownership). Mount these routes in main.rs. The raw key in the POST response must be clearly marked in the response as 'Store this key securely \u2014 it will not be shown again.'",
+      "acceptance_criteria": [
+        "GET /api/v1/api-keys returns list of user's keys without key_hash \u2014 verify with curl using valid session",
+        "POST /api/v1/api-keys returns {id, name, prefix, key, message} with raw key \u2014 verify with curl",
+        "DELETE /api/v1/api-keys/:id returns 204 on success \u2014 verify with curl",
+        "DELETE /api/v1/api-keys/:id returns 403 if key belongs to another user \u2014 verify with curl",
+        "All routes return 401 without valid session \u2014 verify with curl",
+        "cargo test -p server passes \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "API-Keys",
+      "feature": "API key authentication guard for readings endpoint",
+      "description": "Create an ApiKeyGuard Rocket request guard that reads the Authorization header (Bearer <key> format) or X-API-Key header, calls validate_api_key() to look up and validate the key, and returns the associated created_by user sub. Create a combined AuthContext enum (Session(CurrentUser) | ApiKey(String)) that the readings POST route accepts \u2014 allowing either a valid session cookie OR a valid API key header. All other routes continue to require CurrentUser session only.",
+      "acceptance_criteria": [
+        "POST /api/v1/readings accepts requests with valid X-API-Key header \u2014 verify with curl using a generated key",
+        "POST /api/v1/readings accepts requests with valid Bearer token in Authorization header \u2014 verify with curl",
+        "POST /api/v1/readings returns 401 with neither session nor API key \u2014 verify with curl",
+        "POST /api/v1/readings returns 401 with invalid/expired API key \u2014 verify with curl using wrong key",
+        "last_used_at updated in DB when API key used \u2014 verify by checking DB after request",
+        "cargo test -p server passes \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "API-Keys",
+      "feature": "Update client to send API key with readings",
+      "description": "Add --api-key CLI argument to client/src/main.rs (optional string). Update client/src/uploader.rs to include the API key in the X-API-Key request header when provided. If --api-key is not set, the client sends requests without authentication (for backward compatibility during development). Update the tilt-client.service ExecStart to include --api-key via an EnvironmentFile or direct arg. Document the API key setup in the service file comments.",
+      "acceptance_criteria": [
+        "--api-key arg accepted by client binary \u2014 verify with cargo run -p client -- --help",
+        "Uploader includes X-API-Key header when api_key is Some \u2014 verify by reading uploader.rs",
+        "Uploader sends no auth header when api_key is None \u2014 verify by reading uploader.rs",
+        "tilt-client.service updated with --api-key placeholder \u2014 verify by reading service file",
+        "cargo build -p client succeeds \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Server-Security",
+      "feature": "Rate limiting fairing for auth and API endpoints",
+      "description": "Add rate limiting to the Rocket server using an in-memory token bucket (or leaky bucket) implemented with a DashMap<IpAddr, RateLimitState> stored in Rocket managed state. Apply limits: /api/v1/auth/* endpoints: 10 requests/minute per IP. /api/v1/readings POST: 60 requests/minute per API key. All other API endpoints: 120 requests/minute per IP. Return HTTP 429 with JSON {\"error\": \"Too Many Requests\", \"retry_after\": N} and Retry-After header when limit exceeded. Implement as a Rocket fairing.",
+      "acceptance_criteria": [
+        "Rate limit fairing attached in main.rs \u2014 verify by reading main.rs",
+        "Sending >10 requests/min to /api/v1/auth/login returns 429 with Retry-After header \u2014 verify with a loop curl command",
+        "429 response body is JSON {\"error\": \"Too Many Requests\", \"retry_after\": N} \u2014 verify by reading response body",
+        "Rate limit state resets after the window expires \u2014 verify by waiting and retrying",
+        "cargo test -p server passes \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Server-Security",
+      "feature": "Security headers fairing",
+      "description": "Add a Rocket fairing that sets security headers on all responses: Strict-Transport-Security: max-age=31536000; includeSubDomains (HSTS), X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Referrer-Policy: strict-origin-when-cross-origin, Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' <AUTHENTIK_ISSUER_URL>. The CSP connect-src should include the configured Authentik issuer URL from env. Remove the X-Powered-By header if present.",
+      "acceptance_criteria": [
+        "Security headers fairing attached in main.rs \u2014 verify by reading main.rs",
+        "curl -I against running server shows Strict-Transport-Security header \u2014 verify by running command",
+        "curl -I shows X-Content-Type-Options: nosniff \u2014 verify by running command",
+        "curl -I shows X-Frame-Options: DENY \u2014 verify by running command",
+        "Content-Security-Policy header present and includes 'self' \u2014 verify by running command",
+        "cargo test -p server passes \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Server-Security",
+      "feature": "CORS lockdown to configured frontend origin",
+      "description": "Update the rocket_cors configuration to only allow the origin specified in FRONTEND_URL env var (e.g., https://tilt.schenkenberger.dev). Remove any wildcard (*) origin allowance. Set allow_credentials: true so session cookies work cross-origin. Allowed methods: GET, POST, PUT, DELETE, OPTIONS. Allowed headers: Content-Type, Authorization, X-API-Key. Add FRONTEND_URL to .env.example with a sensible default of http://localhost:5173 for development.",
+      "acceptance_criteria": [
+        "CORS fairing rejects requests from origins not matching FRONTEND_URL \u2014 verify by sending request with Origin: https://evil.com and checking no CORS headers returned",
+        "CORS fairing allows requests from FRONTEND_URL \u2014 verify by sending request with correct Origin",
+        "Access-Control-Allow-Credentials: true in CORS response \u2014 verify with curl",
+        "X-API-Key listed in Access-Control-Allow-Headers \u2014 verify with curl OPTIONS request",
+        "FRONTEND_URL in .env.example \u2014 verify by reading file"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Server-Security",
+      "feature": "Request logging and audit trail",
+      "description": "Add a Rocket fairing that logs all API requests with structured tracing fields: method, path, status_code, duration_ms, user_sub (from session if present), api_key_prefix (from API key if present), ip_address, user_agent. Use tracing::info! for 2xx/3xx, tracing::warn! for 4xx, tracing::error! for 5xx. This creates an audit trail for security review. Ensure no sensitive data (passwords, raw API keys, session tokens) appears in logs.",
+      "acceptance_criteria": [
+        "Request logging fairing attached in main.rs \u2014 verify by reading main.rs",
+        "Each request produces a structured log line with method, path, status, duration_ms \u2014 verify by making a request and checking logs",
+        "Authenticated requests include user_sub or api_key_prefix in log \u2014 verify by making authenticated request and checking logs",
+        "Raw API keys and session tokens do NOT appear in logs \u2014 verify by reading fairing source",
+        "cargo test -p server passes \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Database-Auth",
+      "feature": "User sessions table and session management service",
+      "description": "Generate a SeaORM migration for a user_sessions table: id (UUID PK), user_sub (VARCHAR, OIDC subject), email (VARCHAR), name (VARCHAR), id_token_hash (VARCHAR, SHA-256 of the OIDC ID token for revocation), created_at (TIMESTAMPTZ), expires_at (TIMESTAMPTZ), last_seen_at (TIMESTAMPTZ). Run `sea-orm-cli migrate generate create_user_sessions` and implement Up/Down. Regenerate entities. Create server/src/services/sessions.rs with: create_session(), get_session_by_id(), touch_session() (updates last_seen_at), delete_session(), delete_expired_sessions(). Store session ID in the encrypted Rocket cookie instead of the raw ID token.",
+      "acceptance_criteria": [
+        "sea-orm-cli migrate up applies user_sessions migration \u2014 verify by running command",
+        "user_sessions table has all specified columns \u2014 verify with \\d user_sessions in psql",
+        "SeaORM entity server/src/models/entities/user_sessions.rs generated \u2014 verify with ls",
+        "create_session() inserts and returns session record \u2014 verify with SeaORM mock test",
+        "delete_expired_sessions() removes sessions past expires_at \u2014 verify with unit test using past timestamp",
+        "cargo test -p server passes \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Database-Auth",
+      "feature": "Session cleanup background task",
+      "description": "Add a background tokio task that runs every hour to call delete_expired_sessions() and prune stale sessions from the database. Spawn this task in server/src/main.rs after the DB pool is initialized, using tokio::spawn with a loop and tokio::time::sleep(Duration::from_secs(3600)). Log the number of deleted sessions at info level. This prevents unbounded growth of the sessions table.",
+      "acceptance_criteria": [
+        "Background cleanup task spawned in main.rs \u2014 verify by reading main.rs",
+        "Task calls delete_expired_sessions() every hour \u2014 verify by reading task source",
+        "Number of deleted sessions logged at info level \u2014 verify by reading task source",
+        "Task does not panic if DB is temporarily unavailable (uses error logging, not unwrap) \u2014 verify by reading source",
+        "cargo build -p server succeeds \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Database-Auth",
+      "feature": "API key expiry enforcement and last_used_at tracking",
+      "description": "Update validate_api_key() in the API keys service to reject keys where expires_at is not null and expires_at < now(). Return a distinct error variant (Expired vs Invalid) so the guard can return an appropriate 401 message. Update the ApiKeyGuard to return {\"error\": \"API key expired\"} vs {\"error\": \"Invalid API key\"} accordingly. Add a DB index on expires_at for efficient expiry queries. Add a background task (similar to session cleanup) that logs a warning for keys expiring within 7 days.",
+      "acceptance_criteria": [
+        "validate_api_key() returns Err(ApiKeyError::Expired) for expired keys \u2014 verify with unit test using past expires_at",
+        "ApiKeyGuard returns {\"error\": \"API key expired\"} with 401 for expired keys \u2014 verify with curl using expired key",
+        "ApiKeyGuard returns {\"error\": \"Invalid API key\"} with 401 for wrong key \u2014 verify with curl using wrong key",
+        "DB index on api_keys.expires_at exists \u2014 verify with \\di in psql",
+        "cargo test -p server passes \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Frontend-Auth",
+      "feature": "Auth context provider and useAuth hook",
+      "description": "Create web/src/lib/auth.tsx with an AuthContext and AuthProvider component. On mount, call GET /api/v1/auth/me to check if the user is authenticated. Store {user: {sub, email, name} | null, isLoading: boolean} in context. Export a useAuth() hook that returns this context. If the /me call returns 401, set user to null. If it returns the user object, set user. Add the AuthProvider to main.tsx wrapping the router. This is the single source of truth for auth state in the frontend.",
+      "acceptance_criteria": [
+        "AuthProvider wraps the app in main.tsx \u2014 verify by reading main.tsx",
+        "useAuth() returns {user, isLoading} \u2014 verify by reading auth.tsx",
+        "On mount, GET /api/v1/auth/me called to hydrate auth state \u2014 verify by inspecting network tab on page load",
+        "user is null when /me returns 401 \u2014 verify by testing with logged-out session",
+        "user has {sub, email, name} when /me returns 200 \u2014 verify by testing with logged-in session",
+        "npm run build succeeds \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Frontend-Auth",
+      "feature": "Protected route wrapper and login redirect",
+      "description": "Create web/src/components/auth/protected-route.tsx that wraps routes requiring authentication. It uses useAuth() to check auth state. While isLoading is true, show a full-page loading spinner. If user is null (unauthenticated), redirect to GET /api/v1/auth/login (the server-side OAuth2 initiation route) by setting window.location.href. If user is set, render the child route via Outlet. Apply ProtectedRoute to all routes except a public /login-callback placeholder. This ensures the entire app is gated behind Authentik login.",
+      "acceptance_criteria": [
+        "ProtectedRoute component exists in web/src/components/auth/ \u2014 verify with ls",
+        "Unauthenticated users redirected to /api/v1/auth/login \u2014 verify by visiting app without session",
+        "Loading spinner shown while auth state is being checked \u2014 verify by throttling network and observing",
+        "Authenticated users see the app normally \u2014 verify by logging in and navigating",
+        "All app routes wrapped with ProtectedRoute in router config \u2014 verify by reading router config",
+        "npm run build succeeds \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Frontend-Auth",
+      "feature": "User menu in sidebar with logout",
+      "description": "Add a user menu to the bottom of the sidebar in web/src/components/layout/app-shell.tsx. Use useAuth() to get the current user. Display the user's name and email in a shadcn DropdownMenu triggered by clicking the user's avatar (initials in a Circle, using shadcn Avatar). Menu items: 'Signed in as <email>' (disabled, informational), separator, 'API Keys' (links to /settings/api-keys), 'Sign Out' (calls POST /api/v1/auth/logout then reloads page). Show a skeleton while auth is loading.",
+      "acceptance_criteria": [
+        "User avatar with initials shown at bottom of sidebar \u2014 verify by viewing app while logged in",
+        "Clicking avatar opens dropdown with email and menu items \u2014 verify by clicking",
+        "'Sign Out' menu item calls POST /api/v1/auth/logout \u2014 verify by clicking and checking network request",
+        "After logout, page reloads and user is redirected to Authentik login \u2014 verify by clicking Sign Out",
+        "'API Keys' menu item navigates to /settings/api-keys \u2014 verify by clicking",
+        "npm run build succeeds \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Frontend-Auth",
+      "feature": "API keys management page",
+      "description": "Create web/src/pages/settings/api-keys.tsx at route /settings/api-keys. Display a table of the user's API keys with columns: Name, Prefix (first 8 chars, e.g. 'ab12cd34...'), Created, Last Used, Expires, Actions (Delete button). Add a 'Create API Key' button that opens a dialog (web/src/components/settings/create-api-key-dialog.tsx) with a Name field and optional Expires At date picker. On creation, show a one-time display dialog with the full raw key and a copy-to-clipboard button, with a warning 'This key will not be shown again.' Add delete confirmation. Create useApiKeys() TanStack Query hook in web/src/hooks/use-api-keys.ts.",
+      "acceptance_criteria": [
+        "API keys page renders at /settings/api-keys \u2014 verify by navigating to route",
+        "Table shows Name, Prefix, Created, Last Used, Expires columns \u2014 verify by viewing with existing keys",
+        "Create dialog has Name field and optional Expires At date picker \u2014 verify by opening dialog",
+        "After creation, raw key shown in one-time dialog with copy button \u2014 verify by creating a key",
+        "Copy button copies key to clipboard \u2014 verify by clicking and pasting",
+        "Delete button shows confirmation before deleting \u2014 verify by clicking delete",
+        "npm run build succeeds \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Frontend-Auth",
+      "feature": "Add /settings/api-keys route to router and sidebar",
+      "description": "Add the /settings route group to the React Router config with /settings/api-keys as a child route rendering the ApiKeysPage. Add a 'Settings' section to the sidebar navigation with a 'API Keys' link (Key icon from Lucide) below the main nav links. Add a separator between the main nav and settings nav. Update the breadcrumbs component to handle /settings/api-keys showing 'Settings > API Keys'. Ensure the route is wrapped in ProtectedRoute.",
+      "acceptance_criteria": [
+        "/settings/api-keys route renders ApiKeysPage \u2014 verify by navigating to URL",
+        "Sidebar shows 'API Keys' link under a Settings section \u2014 verify by viewing sidebar",
+        "Breadcrumbs show 'Settings > API Keys' on the page \u2014 verify by viewing page header",
+        "Route is protected (redirects to login if unauthenticated) \u2014 verify by visiting without session",
+        "npm run build succeeds \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Testing-Security",
+      "feature": "Integration tests for OAuth2 auth routes",
+      "description": "Add integration tests in server/src/routes/api_keys.rs and a new server/tests/auth_tests.rs using Rocket's local::asynchronous::Client. Tests: (1) GET /api/v1/auth/me returns 401 without session, (2) GET /api/v1/auth/me returns user JSON with mock session cookie, (3) POST /api/v1/auth/logout clears session cookie, (4) GET /api/v1/brews returns 401 without session, (5) GET /api/v1/brews returns 200 with valid mock session. Use a test helper that injects a pre-built encrypted session cookie bypassing the full OAuth2 flow. Mock the OIDC provider using a test issuer URL.",
+      "acceptance_criteria": [
+        "server/tests/auth_tests.rs exists with at least 5 test functions \u2014 verify with ls and count #[tokio::test] annotations",
+        "cargo test -p server auth_tests passes \u2014 verify by running command",
+        "Test for 401 on protected route without session passes \u2014 verify by running specific test",
+        "Test for 200 on protected route with mock session passes \u2014 verify by running specific test",
+        "Test helper for injecting mock session cookie documented \u2014 verify by reading test helper source"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Testing-Security",
+      "feature": "Integration tests for API key routes and guard",
+      "description": "Add integration tests in server/tests/api_key_tests.rs: (1) POST /api/v1/api-keys creates key and returns raw key once, (2) GET /api/v1/api-keys lists keys without hash, (3) DELETE /api/v1/api-keys/:id deletes own key, (4) DELETE /api/v1/api-keys/:id returns 403 for another user's key, (5) POST /api/v1/readings with valid X-API-Key header returns 201, (6) POST /api/v1/readings with invalid API key returns 401, (7) POST /api/v1/readings with expired API key returns 401 with 'API key expired' message. Use SeaORM mock or a test database.",
+      "acceptance_criteria": [
+        "server/tests/api_key_tests.rs exists with at least 7 test functions \u2014 verify with ls and count",
+        "cargo test -p server api_key_tests passes \u2014 verify by running command",
+        "Test verifying raw key returned only on creation passes \u2014 verify by running specific test",
+        "Test verifying 403 on cross-user delete passes \u2014 verify by running specific test",
+        "Test verifying expired key returns 401 with correct message passes \u2014 verify by running specific test",
+        "cargo test --workspace passes \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Testing-Security",
+      "feature": "Rate limiting and security headers tests",
+      "description": "Add integration tests for security middleware in server/tests/security_tests.rs: (1) Verify all security headers present on any response (HSTS, X-Content-Type-Options, X-Frame-Options, CSP), (2) Verify CORS rejects requests from disallowed origins, (3) Verify CORS allows requests from FRONTEND_URL, (4) Verify rate limiting returns 429 after threshold exceeded on auth endpoints, (5) Verify Retry-After header present on 429 response. Use Rocket local client for header inspection.",
+      "acceptance_criteria": [
+        "server/tests/security_tests.rs exists with at least 5 test functions \u2014 verify with ls",
+        "Security headers test verifies all 4 required headers present \u2014 verify by running test",
+        "CORS origin rejection test passes \u2014 verify by running test",
+        "Rate limit 429 test passes \u2014 verify by running test",
+        "cargo test -p server security_tests passes \u2014 verify by running command"
+      ],
+      "passes": false
+    },
+    {
+      "group": "Testing-Security",
+      "feature": "Client API key integration test and deployment documentation",
+      "description": "Add a justfile recipe `test-client-auth` that runs the client in simulate mode against a local server using a generated API key (created via curl, stored in a temp file, passed as --api-key). This verifies the full client\u2192server auth flow. Additionally, create docs/deployment-security.md documenting: (1) How to configure Authentik OAuth2 application (client ID, secret, redirect URI), (2) How to set all required env vars (AUTHENTIK_ISSUER_URL, AUTHENTIK_CLIENT_ID, AUTHENTIK_CLIENT_SECRET, FRONTEND_URL, ROCKET_SECRET_KEY), (3) How to generate and configure an API key for the Pi client, (4) How to rotate API keys without downtime.",
+      "acceptance_criteria": [
+        "just test-client-auth recipe exists in justfile \u2014 verify with just --list",
+        "docs/deployment-security.md exists with all 4 documented sections \u2014 verify by reading file",
+        "Authentik OAuth2 app configuration steps documented with required redirect URI format \u2014 verify by reading docs",
+        "API key rotation procedure documented \u2014 verify by reading docs",
+        "just test-client-auth runs without error against a local server \u2014 verify by running command"
+      ],
+      "passes": false
     }
   ]
 }
