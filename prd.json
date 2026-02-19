@@ -528,7 +528,7 @@
         "delete_api_key() returns error if user_sub doesn't match created_by \u2014 verify with unit test",
         "cargo test -p server passes \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "API-Keys",
@@ -542,7 +542,7 @@
         "All routes return 401 without valid session \u2014 verify with curl",
         "cargo test -p server passes \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "API-Keys",
@@ -556,7 +556,7 @@
         "last_used_at updated in DB when API key used \u2014 verify by checking DB after request",
         "cargo test -p server passes \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "API-Keys",
@@ -569,7 +569,7 @@
         "tilt-client.service updated with --api-key placeholder \u2014 verify by reading service file",
         "cargo build -p client succeeds \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Server-Security",
