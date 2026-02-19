@@ -462,7 +462,7 @@
         "API routes protected by CurrentUser return 401 JSON {\"error\":\"Unauthorized\"} when no session \u2014 verify with curl against running server",
         "OIDC provider metadata fetched at startup from Authentik discovery endpoint \u2014 verify by checking server startup logs"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "OAuth2-Auth",
@@ -475,7 +475,7 @@
         "Successful login redirects to / and subsequent API requests include valid session \u2014 verify by completing login flow end-to-end",
         "PKCE code_verifier stored in short-lived cookie and validated in callback \u2014 verify by reading route source"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "OAuth2-Auth",
@@ -488,7 +488,7 @@
         "GET /api/v1/auth/me returns 401 for unauthenticated requests \u2014 verify with curl without session cookie",
         "cargo test -p server passes all auth route tests \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "OAuth2-Auth",
@@ -501,7 +501,7 @@
         "cargo test -p server passes \u2014 verify by running command",
         "Existing integration tests updated to include mock CurrentUser guard \u2014 verify by reading test files"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "API-Keys",

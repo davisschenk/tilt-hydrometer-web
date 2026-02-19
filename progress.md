@@ -690,3 +690,14 @@ Appended 3 new tasks to prd.json under group "Justfile":
 - Verify with `cargo check -p server`
 **Files:** server/migration/src/m20260219_012142_create_user_sessions.rs, server/migration/src/lib.rs, server/src/models/entities/user_sessions.rs, server/src/services/sessions.rs, server/src/services/mod.rs
 **Result:** Success — migration applied, user_sessions entity generated, sessions service with create/get/touch/delete/delete_expired functions, cargo check -p server passes
+
+## Working on: OAuth2 OIDC fairing + CurrentUser guard + auth routes (tasks 34, 35, 36, 37)
+**Plan:**
+- Add `openidconnect` and `reqwest` (blocking) deps to server crate
+- Create server/src/guards/mod.rs and server/src/guards/current_user.rs with CurrentUser struct implementing FromRequest (reads session cookie, validates against DB)
+- Create server/src/oidc.rs with OidcClient struct (discovered from AUTHENTIK_ISSUER_URL) stored as managed state
+- Create server/src/routes/auth.rs with: GET /auth/login (PKCE redirect), GET /auth/callback (exchange code, create session, set cookie), POST /auth/logout (clear cookie, delete session), GET /auth/me (return user info)
+- Apply CurrentUser guard to all existing routes in brews.rs, hydrometers.rs, readings.rs (readings POST accepts CurrentUser OR ApiKey)
+- Register guards module and auth routes in main.rs
+- Verify with `cargo check -p server`
+**Files:** server/src/guards/mod.rs, server/src/guards/current_user.rs, server/src/oidc.rs, server/src/routes/auth.rs, server/src/routes/brews.rs, server/src/routes/hydrometers.rs, server/src/routes/readings.rs, server/src/main.rs
