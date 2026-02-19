@@ -649,7 +649,7 @@
         "Task does not panic if DB is temporarily unavailable (uses error logging, not unwrap) \u2014 verify by reading source",
         "cargo build -p server succeeds \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Database-Auth",
@@ -662,7 +662,7 @@
         "DB index on api_keys.expires_at exists \u2014 verify with \\di in psql",
         "cargo test -p server passes \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "Frontend-Auth",
