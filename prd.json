@@ -514,7 +514,7 @@
         "SeaORM entity file server/src/models/entities/api_keys.rs generated \u2014 verify with ls",
         "sea-orm-cli migrate down rolls back cleanly \u2014 verify by running command"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "group": "API-Keys",
